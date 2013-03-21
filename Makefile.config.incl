@@ -1,0 +1,23 @@
+
+#
+# Makefile.config.incl
+#
+
+CPP=g++-mp-4.7
+CPPFLAGS += -std=c++11
+
+INCLUDE= $(TOPDIR)/include
+CPPFLAGS += -I $(INCLUDE)
+
+MAKEDEPEND= $(CPP) -MM $(CPPFLAGS) -o $*.d $<
+
+LIB_BSD_SOCKET= $(TOPDIR)/lib/libBsdSocket.a
+LIB_BSD_SOCKET_INCL= -L $(TOPDIR)/lib -l BsdSocket
+
+LIB_CPPUNIT_INCL= -L /opt/local/lib -lcppunit
+
+info:
+	@echo SRC=$(SRC)
+	@echo DEPS=$(DEPS)
+	@echo OBJS=$(OBJS)
+	@echo TARGET=$(TARGET)
