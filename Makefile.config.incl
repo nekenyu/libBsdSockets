@@ -9,6 +9,10 @@ CPPFLAGS += -std=c++11
 INCLUDE= $(TOPDIR)/include
 CPPFLAGS += -I $(INCLUDE)
 
+ifdef DEBUG
+      CPPFLAGS += -g
+endif
+
 MAKEDEPEND= $(CPP) -MM $(CPPFLAGS) -o $*.d $<
 
 LIB_BSD_SOCKET= $(TOPDIR)/lib/libBsdSocket.a

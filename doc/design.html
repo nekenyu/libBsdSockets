@@ -35,12 +35,18 @@ cumbersome.</p>
 <ol>
 	<li>Bleeding is to be minimized, of course.&nbsp; It should be avoided, but not necessarilly at the expense of lots 
 	of duplication.</li>
+	<li>Prefer const objects -- objects that do not undergo state changes after 
+	construction.&nbsp; This makes code more complicated for initialization, but 
+	simplifies the rest of the code and the usage.</li>
+	<li>Doxygen comments can go in .h files since their causing recompilation is 
+	not an issue.</li>
 </ol>
 <h3>Top Level Breakdown</h3>
 <p>libBsdSockets consists of the following parts:</p>
 <ul>
-	<li>Addresses -- A collection of tools to handle addresses used in connect() 
-	and accept()</li>
+	<li><a href="#address-info">Address Info</a> -- A collection of constants and helpers.</li>
+	<li><a href="#address-classes">Address Classes</a> -- A collection of tools to handle addresses used in connect() 
+	and accept().</li>
 </ul>
 <div id="bleeding">
 <h2>Bleeding</h2>
@@ -68,6 +74,28 @@ This appears in several ways:</p>
 	the system headers being included.&nbsp; Obviously, as said above, the 
 	caller is free to include them if it is necessary to perform operations on 
 	raw data structures beyond the scope of this project.</p>
+</div>
+
+<h2>Addresses</h2>
+<div id="address-info">
+	<h3>Address Info</h3>
+	<p>Address Info is a collection of constants and helpers.&nbsp; For 
+	simplicity, the conversion utilities are done with hard if/else statements.&nbsp; 
+	Mapping would have been better; however, I couldn't guarantee someone 
+	wouldn't create a static instance before the maps were initialized.&nbsp; I 
+	could lazy-initialize them, but that would add its own overhead.</p>
+</div>
+
+<div id="address-classes">
+	<h3>Address Classes</h3>
+	<p>The Address classes simplify and encapsulate the low-level details.</p>
+	<p>The Address base class provides the common information for all types of 
+	addresses and a pure-virtual method to access the RawAddress.&nbsp; 
+	Including RawAddress.h requires including low-level headers; however, most 
+	users should never need that.</p>
+	<p>Address Derived classes for Internet and Local Sockets (formerly Unix 
+	Domain Sockets) are provided.&nbsp; There is nothing special that prevents 
+	callers from creating their own Address-derived classes for other purposes.</p>
 </div>
 
 <h1>End</h1>

@@ -9,8 +9,17 @@
 <h1>Examples</h1>
 <p><a href="index.html">Back To Top Page</a></p>
 <h2>Purpose</h2>
-<p>Provide Usage Examples of libBsdSockets</p>
+<p>Provide examples of libBsdSockets.</p>
+<h2>Addresses</h2>
+<p>Examples of creating Addresses:</p>
+<pre><code>const LocalAddress localAddress("some-pipe-name");
 
+const InetAddress localCustom = InetAddress::create(SocketType::STREAM, "127.0.0.1", "12345");
+
+std::vector&lt;InetAddress&gt; google;
+InetAddress::create(SocketType::STREAM, "google.com", "", google);
+</code></pre>
+<p>More examples are in <a href="../examples/InetAddressExamples.cpp">InetAddressExamples.cpp</a>.</p>
 <h1>End</h1>
 </body>
 

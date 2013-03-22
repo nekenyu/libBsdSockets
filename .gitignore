@@ -1,2 +1,8 @@
 .DS_Store
 *.d
+doc/doxygen
+*~
+*.bak
+*.o
+*.d
+test/cppunitTest

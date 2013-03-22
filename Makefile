@@ -11,6 +11,7 @@ all:
 #
 
 SUBDIRS+= src
+SUBDIRS+= examples
 SUBDIRS+= test
 
 all clean cleaner cleanest: $(SUBDIRS)
@@ -30,6 +31,14 @@ $(SUBDIRS):
 
 test: src
 
+.PHONY: doxygen
+doxygen: all
+	doxygen Doxyfile
+
+cleanest:
+	-rm -rf doc/doxygen
+
 runTest: all
 	test/cppunitTest
 
+build: all doxygen runTest

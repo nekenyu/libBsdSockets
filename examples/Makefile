@@ -1,18 +1,17 @@
 all:
 
 #
-# test Makefile
+# src Makefile
 #
 
 TOPDIR= ../
 -include $(TOPDIR)/Makefile.config.incl
 
-TARGET= cppunitTest
-all: $(TARGET)
-
 SRC:= $(wildcard *.cpp)
 OBJS= $(patsubst %.cpp,%.o,$(SRC))
 DEPS= $(patsubst %.cpp,%.d,$(SRC))
+
+all: $(OBJS)
 
 %.o: %.cpp
 	@$(MAKEDEPEND)
@@ -28,6 +27,3 @@ cleaner: clean
 
 cleanest: cleaner
 	rm -f $(TARGET)
-
-$(TARGET): $(OBJS) $(LIB_BSD_SOCKET)
-	$(CPP) $(CPPFLAGS) -o $@ $^ $(LIB_BSD_SOCKET_INCL) $(LIB_CPPUNIT_INCL)
