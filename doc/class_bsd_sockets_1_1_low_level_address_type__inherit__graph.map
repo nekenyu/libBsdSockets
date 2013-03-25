@@ -1,0 +1,5 @@
+<map id="BsdSockets::LowLevelAddressType&lt; Impl &gt;" name="BsdSockets::LowLevelAddressType&lt; Impl &gt;">
+<area shape="rect" id="node3" href="$class_bsd_sockets_1_1_inet_address_pimpl.html" title="The private implementation of InetAddress." alt="" coords="501,5,696,46"/>
+<area shape="rect" id="node4" href="$class_bsd_sockets_1_1_local_address_pimpl.html" title="The private implementation of LocalAddress." alt="" coords="509,70,689,111"/>
+<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_low_level_address.html" title="Interface for the low&#45;level address implementation." alt="" coords="6,45,205,72"/>
+</map>

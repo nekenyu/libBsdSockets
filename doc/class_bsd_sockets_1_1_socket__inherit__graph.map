@@ -1,0 +1,4 @@
+<map id="BsdSockets::Socket" name="BsdSockets::Socket">
+<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_client_socket.html" title="Client Socket providing ability to connect to and Address." alt="" coords="5,80,171,107"/>
+<area shape="rect" id="node3" href="$class_bsd_sockets_1_1_server_socket.html" title="Server Socket providing ability to bind, listen and accept connections." alt="" coords="195,80,365,107"/>
+</map>
