@@ -37,6 +37,7 @@ Building:
 - Build documentation with: make doxygen
 - Run the test with: make doxygen
 - All of the above with: make all
+
 Usage:
 - Include the headers in include
 - Link against the library -lBsdSockets
