@@ -1,0 +1,7 @@
+libBsdSockets
+
+License is located in LICENSE.
+
+Code, documentation, examples and test are built with: make build
+
+Documentation is stored in dox/ in doxygen markup style or can be viewed as built by doxygen.
