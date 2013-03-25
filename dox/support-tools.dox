@@ -1,0 +1,48 @@
+/**
+\page support-tools Support Tools
+
+This page documents how we use the following tools:
+- GNU make
+- doxygen
+- cppunit
+
+\note This page is not generally of use to the library user.
+
+\section gnu-make GNU Make
+
+Make is configured to work from each diretory with source code, such as src, examples and test.
+
+Common information is in Makefile.config.incl including compiler flags, where to include header files, how to build dependencies, the actual library built, and how to use the library within the GNU Make environment of the project.
+
+The top-level Makefile delegates the targets all, clean, cleaner and cleanest to the subdirectories in proper dependency order and adds some additional tasks.
+
+The src/ Makefile builds the library.
+
+The cppunit/ Makefile builds a CppUnit test command.
+
+The examples/ Makefile compiles each example file to help ensure they remain syntaticly valid.
+
+Common GNU Make Targets:
+- all -- builds source
+- clean -- cleans object files
+- cleaner -- cleans all files not part of a distribution
+- cleanest -- cleans all files generated
+
+Top-Level Only GNU Make Targets:
+- runTest -- runs the test binary
+- doxygen -- builds doxygen documentation
+- build -- builds all source and doxygen documentation, and runs the CppUnit tests
+
+\section doxygen Doxygen
+
+We put doxygen comments in the header for ease of maintenance.  Causing extraneous building for documentaiton changes is not a significant concern on a project this small.
+
+We have a directory of .dox files, named dox/, to provide all of the documentation for the project as a trial of the facility and its usefulness.  It started because the usual documentation files obviously could not be linked to from the doxygen generated files neatly.
+
+We have a directory of examples, named examples, to provide compiled (thus syntatically valid, examples.
+
+\section cppunit CppUnit
+
+We build CppUnit as a main function that links to the built library.  The library saves us from hacking around which "main" file to use.
+
+*/

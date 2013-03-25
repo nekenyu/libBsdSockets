@@ -1,0 +1,22 @@
+/**
+\page todo Todo List for libBsdSockets
+
+- Testing
+  + IPv6 Sockets
+  + Local Domain Sockets
+  + UDP Packets
+    + Not using accept
+  + IP Packets
+  + Deferred connect and bind & listen
+- Does it every make sense to allow an empty service name for an InetAddress?
+- Socket requires understanding socklen_t.  Not much we can do but convert to size_t?
+- Add SocketSet
+- Add sendto / receivefrom
+- Add sendmsg / receivemsg
+- Unspecified Address type
+  + Add it
+  + Replace hack in accept with returning the unspecified address type, which means a real factory
+- Address threading -- mainly an issue with passing off accepted socket across thread boundary
+- Timeout based blocking reads
+
+*/

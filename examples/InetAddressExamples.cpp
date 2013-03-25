@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <system_error>
+#include <memory>
 
 #include <vector>
 #include <string>
@@ -12,28 +13,28 @@ using namespace std;
 void inetAddressExamples() {
   // Invalid service
   try {
-    const InetAddress invalid = InetAddress::create(SocketType::STREAM, "", "9999999999");
+    InetAddress::Ptr invalid = InetAddress::create(SocketType::STREAM, "9999999999");
   } catch (std::system_error e) {
   }
 
   // Specifying a service by name
-  const InetAddress allSmtp = InetAddress::create(SocketType::STREAM, "", "smtp");
+  InetAddress::Ptr allSmtp = InetAddress::create(SocketType::STREAM, "smtp");
 
   // Specifying a service by port number
-  const InetAddress allCustom = InetAddress::create(SocketType::STREAM, "", "12345");
+  InetAddress::Ptr allCustom = InetAddress::create(SocketType::STREAM, "12345");
 
   // Specifying IPv4 IP address
-  const InetAddress localSmtp = InetAddress::create(SocketType::STREAM, "127.0.0.1", "smtp");
+  InetAddress::Ptr localSmtp = InetAddress::create(SocketType::STREAM, "smtp", "127.0.0.1");
 
   // Specifying IPV4 IP address and port number
-  const InetAddress localCustom = InetAddress::create(SocketType::STREAM, "127.0.0.1", "12345");
+  InetAddress::Ptr localCustom = InetAddress::create(SocketType::STREAM, "12345", "127.0.0.1");
 
   // Specifying IPv6 IP address
-  const InetAddress localInet6 = InetAddress::create(SocketType::STREAM, "::1", "");
+  InetAddress::Ptr localInet6 = InetAddress::create(SocketType::STREAM, "smtp", "::1");
 
   // Collecting all matching addresses, such as the multiple IPs behind google.com
-  std::vector<InetAddress> google;
-  InetAddress::create(SocketType::STREAM, "google.com", "", google);
+  std::vector<InetAddress::Ptr> google;
+  InetAddress::create(SocketType::STREAM, "http", "google.com", google);
 }
 
 

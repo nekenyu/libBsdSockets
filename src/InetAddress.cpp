@@ -2,73 +2,79 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <string.h>
+#include <memory>
 
 #include <stdexcept>
 #include <system_error>
 #include <string>
 #include <vector>
 
+#include "AddressInfoConversions.h"
 #include "InetAddress.h"
 
-#include "RawAddress.h"
+#include "LowLevelAddress.h"
 
 namespace {
   /** Return actual address string from sockaddr info
    *
+   * @param int family to use to decode
    * @param result struct addrinfo to calculate address string of
    *
    * @return string representation of address in result
    */
-  std::string parseAddress(const struct addrinfo& result) {
+  std::string parseAddress(const int family, const struct sockaddr_in* const sin) {
     const size_t bufferLen = std::max(INET_ADDRSTRLEN, INET6_ADDRSTRLEN);
     char buffer[bufferLen];
     buffer[0] = '\0';
     
-    struct sockaddr_in* sin = (sockaddr_in*) result.ai_addr;
-    const char* actualAddressString = inet_ntop(result.ai_family, &(sin->sin_addr.s_addr), buffer, bufferLen);
+    const char* actualAddressString = inet_ntop(family, &(sin->sin_addr.s_addr), buffer, bufferLen);
     if(nullptr == actualAddressString) {
       throw std::invalid_argument("Address not valid");
     }
     
     return actualAddressString;
   }
+
+  /** Return actual address string from addrinfo
+   *
+   * @param result struct addrinfo to calculate address string of
+   *
+   * @return string representation of address in result
+   */
+  std::string parseAddress(const struct addrinfo& result) {
+    const struct sockaddr_in* const sin = (sockaddr_in*) result.ai_addr;
+    return parseAddress(result.ai_family, sin);
+  }
 }
 
 namespace BsdSockets {
+  typedef LowLevelAddressType<struct sockaddr_in>  InetLowLevelAddress;
 
-  /** The private implementation of InetAddress.
+  /** \brief The private implementation of InetAddress.
    *
-   * This provides both the RawAddress and the computed details of the Address
+   * This provides both the LowLevelAddress and the computed details of the Address
    * such as port number and actual address matched.
    *
    * The actual address may differ from the actual address due to hostname
    * resolution, etc.
    */
-  class InetAddressPimpl : public RawAddress {
+  class InetAddressPimpl : public InetLowLevelAddress {
   public:
-    /** Create with parameters
-     * @param theRawAddress to save a copy of for later use in getSockAddr()
-     * @param theActualAddress the already formatted string version of the 
-     * address in theRawAddress
-     */
-    InetAddressPimpl(const sockaddr_in* const theRawAddress, const std::string& theActualAddress)
-      : actualAddress(theActualAddress)
-    {
-      memcpy(&rawAddress, theRawAddress, sizeof(rawAddress));
-    }
+    typedef std::shared_ptr<InetAddressPimpl> Ptr;
 
-    /** Create as copy of rhs.
-     *
-     * @param rhs to copy
+    /** Create with parameters
+     * @param theLowLevelAddress to save a copy of for later use in getSockAddr()
+     * @param theActualAddress the already formatted string version of the 
+     * address in theLowLevelAddress
      */
-    InetAddressPimpl(const InetAddressPimpl& rhs)
-    : actualAddress(rhs.actualAddress)
+    InetAddressPimpl(const sockaddr_in& theLowLevelAddress, const std::string& theActualAddress)
+      : InetLowLevelAddress(theLowLevelAddress), actualAddress(theActualAddress)
     {
-      memcpy(&rawAddress, &rhs.rawAddress, sizeof(rawAddress));
     }
 
   private:
     InetAddressPimpl() = delete;
+    InetAddressPimpl(const InetAddressPimpl& rhs) = delete;
     InetAddressPimpl(InetAddressPimpl&& rhs) = delete;
     InetAddressPimpl& operator=(const InetAddressPimpl& rhs) = delete;
     InetAddressPimpl& operator=(InetAddressPimpl&& rhs) = delete;
@@ -81,22 +87,10 @@ namespace BsdSockets {
 
     /** @return the port or 0 for none */
     const unsigned int getPort() const {
-      return ntohs(rawAddress.sin_port);
-    }
-
-  public:
-    virtual const struct sockaddr& getSockAddr() const {
-      return (const struct sockaddr&) rawAddress;
-    }
-
-    virtual socklen_t getSockLen() const {
-      return sizeof(rawAddress);
+      return ntohs(lowLevelAddress.sin_port);
     }
 
   private:
-    /** The low-level raw address */
-    struct sockaddr_in rawAddress;
-
     /** The actual address matched */
     const std::string actualAddress;
   };
@@ -106,20 +100,20 @@ namespace BsdSockets {
    */
 
   int InetAddress::create(
-    SocketType socketType, const std::string& address, const std::string& serviceName,
-    std::vector<InetAddress>& created, unsigned int max
+    SocketType socketType, const std::string& serviceName, const std::string& address,
+    std::vector<InetAddress::Ptr>& created, unsigned int max
   ) {
     // Setup hints to resolve address
     struct addrinfo hints;
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = PF_UNSPEC;
-    hints.ai_socktype = socketTypeToRaw(socketType);
+    hints.ai_socktype = socketTypeToLowLevel(socketType);
     
     // Resolve address and throw and handle errors including failing to match
     struct addrinfo *results = nullptr;
     const int error = getaddrinfo(address.c_str(), serviceName.c_str(), &hints, &results);
     if (error) {
-      // TODO: this might not be appropriate
+      // TODO: this might not be appropriate to pass the error code here
       throw std::system_error(error, std::system_category(),  gai_strerror(error));
     }
     
@@ -133,15 +127,16 @@ namespace BsdSockets {
     int count = 0;
     for(struct addrinfo* result = results; nullptr != result && (max <= 0 || count < max); result = result->ai_next, ++count) {
       // Parse the socket domain and actual address
-      const SocketDomain socketDomain = rawToSocketDomain(result->ai_family);
+      const SocketDomain socketDomain = lowLevelToSocketDomain(result->ai_family);
       if(SocketDomain::INET4 != socketDomain && SocketDomain::INET6 != socketDomain) {
 	throw std::invalid_argument("Invalid address family for address");
       }
       const std::string actualAddress = parseAddress(*result);
 
       // Create the pimpl and InetAddress
-      const InetAddressPimpl* const pimpl = new InetAddressPimpl(reinterpret_cast<const struct sockaddr_in* const>(result->ai_addr), actualAddress);
-      created.push_back(InetAddress(socketDomain, socketType, result->ai_protocol, address, serviceName, pimpl));
+      InetAddressPimpl::Ptr pimpl(new InetAddressPimpl(
+         *reinterpret_cast<const struct sockaddr_in* const>(result->ai_addr), actualAddress));
+      created.push_back(InetAddress::Ptr(new InetAddress(socketDomain, socketType, result->ai_protocol, serviceName, address, pimpl)));
     }
 
     // Free results
@@ -150,37 +145,21 @@ namespace BsdSockets {
     return count;
   }
 
-  InetAddress InetAddress::create(SocketType socketType, const std::string& address, const std::string& serviceName) {
+  InetAddress::Ptr InetAddress::create(SocketType socketType, const std::string& serviceName, const std::string& address) {
     // find at most 1...  if none are found exceptions will be thrown, so found.at(0) should be safe
-    std::vector<InetAddress> found;
-    create(socketType, address, serviceName, found, 1);
+    std::vector<InetAddress::Ptr> found;
+    create(socketType, serviceName, address, found, 1);
     return found.at(0);
   }
 
   InetAddress::~InetAddress() {
-    delete pimpl;
   }
 
-  InetAddress::InetAddress(const InetAddress& rhs)
-    : Address(rhs),
-      requestedAddress(rhs.requestedAddress), serviceName(rhs.serviceName),
-      pimpl(new InetAddressPimpl(*rhs.pimpl))
-  {  
-  }
-
-  InetAddress::InetAddress(InetAddress&& rhs)
-    : Address(rhs),
-      requestedAddress(rhs.requestedAddress), serviceName(rhs.serviceName),
-      pimpl(new InetAddressPimpl(*rhs.pimpl))
-  {
-    // Note: This is really copy not move, since move requires nullptring rhs.pimpl, which is const...
-  }
-
-  InetAddress::InetAddress(SocketDomain theDomain, SocketType theSocketType, int theProtocol,
-		const std::string& theRequestedAddress, const std::string& theServiceName,
-		const InetAddressPimpl* const pimpl
+  InetAddress::InetAddress(SocketDomain theSocketDomain, SocketType theSocketType, int theProtocol,
+			   const std::string& theServiceName, const std::string& theRequestedAddress,
+			   std::shared_ptr<InetAddressPimpl> pimpl
   )
-    : Address(theDomain, theSocketType, theProtocol),
+    : Address(theSocketDomain, theSocketType, theProtocol),
       requestedAddress(theRequestedAddress), serviceName(theServiceName),
       pimpl(pimpl)
   {
@@ -205,7 +184,26 @@ namespace BsdSockets {
     return pimpl->getPort();
   }
 
-  const RawAddress& InetAddress::getImpl() const {
+  LowLevelAddress::Ptr InetAddress::makeTempLowLevelAddress() const {
+    return LowLevelAddress::Ptr(new InetLowLevelAddress());
+  }
+
+  Address::Ptr InetAddress::create(std::shared_ptr<LowLevelAddress> fromLowLevelAddress) const {
+    const int fromLowLevelAddressFamily = fromLowLevelAddress->getSockAddr().sa_family;
+
+    if(AF_INET != fromLowLevelAddressFamily && AF_INET6 != fromLowLevelAddressFamily) {
+      throw std::invalid_argument("LowLevelAddress is of wrong type for InetAddress to create");
+    }
+
+    const struct sockaddr_in* const sin = 
+      reinterpret_cast<const struct sockaddr_in* const>(&fromLowLevelAddress->getSockAddr());
+
+    const std::string theActualAddress = parseAddress(fromLowLevelAddressFamily, sin);
+    InetAddressPimpl::Ptr pimpl(new InetAddressPimpl(*sin, theActualAddress));
+    return InetAddress::Ptr(new InetAddress(getSocketDomain(), getSocketType(), getProtocol(), serviceName, "", pimpl));
+  }
+  
+  LowLevelAddress& InetAddress::getLowLevelAddress() const {
     return *pimpl;
   }
 

@@ -33,22 +33,6 @@ namespace BsdSockets {
       RAW
       };
 
-  /** Find the low-level constant for domain
-   *
-   * @param domain to get the low-level constant for
-   *
-   * @return the low-level constant for domain
-   */
-  int socketDomainToRaw(SocketDomain domain);
-
-  /** Find the SocketDomain for the low-level value constant
-   *
-   * @param value to find the SocketDomain for
-   *
-   * @return the SocketDomain for the low-level value constant
-   */
-  SocketDomain rawToSocketDomain(int value);
-
   /** The low-level type of the socket.
    *
    * This provides detail to the low-level implementation.
@@ -69,14 +53,6 @@ namespace BsdSockets {
       /** Sequenced packet stream */
       SEQUENCED_PACKET
       };
-
-  /** Find the low-level constant for type.
-   *
-   * @param type to get the low-level constant for
-   *
-   * @return the low-level constant for type
-   */
-  int socketTypeToRaw(SocketType type);
 
 }
 

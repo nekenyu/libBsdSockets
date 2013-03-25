@@ -10,19 +10,21 @@ namespace BsdSockets {
   /*
    * Forward Declarations
    */
-  class RawAddress;
+  class LowLevelAddress;
   class LocalAddressPimpl;
 
-  /** Local Socket Address (formerly Unix Domain Socket) Address representing
+  /** \class LocalAddress
+   *
+   * \brief Local Socket Address (formerly Unix Domain Socket) Address representing
    * a named pipe's name.
    *
-   * Example:
-   * \code
-   * const LocalAddress addr("foo");
-   * \endcode
+   * \example LocalAddressExamples.cpp
+   * Examples of using a LocalAddress
    */
   class LocalAddress : public Address {
   public:
+    typedef std::shared_ptr<LocalAddress> Ptr;
+
     /** Virtual destructor to support derived classes */
     virtual ~LocalAddress();
 
@@ -30,17 +32,23 @@ namespace BsdSockets {
      *
      * @param thePath path to create from, cannot be empty, must be shorter 
      * than the unspecified maximum length for this system.
-     */
-    LocalAddress(const std::string& thePath);
-
-    /** Create as copy of rhs
      *
-     * @param rhs to copy
+     * @return LocalAddress created
      */
-    LocalAddress(const LocalAddress& rhs);
+    static LocalAddress::Ptr create(const std::string& thePath);
+
+  private:
+    /** Create from thePath string
+     *
+     * @param thePath path to create from, cannot be empty, must be shorter 
+     * than the unspecified maximum length for this system.
+     * @param a blank address is allowed only from accept()
+     */
+    LocalAddress(const std::string& thePath, bool allowBlank = false);
 
   private:
     LocalAddress() = delete;
+    LocalAddress(const LocalAddress& rhs) = delete;
     LocalAddress(LocalAddress&& rhs) = delete;
     LocalAddress& operator=(const LocalAddress& rhs) = delete;
     LocalAddress& operator=(LocalAddress&& rhs) = delete;
@@ -50,14 +58,16 @@ namespace BsdSockets {
     const std::string& getPath() const;
 
   public:
-    virtual const RawAddress& getImpl() const;
+    virtual std::shared_ptr<LowLevelAddress> makeTempLowLevelAddress() const;
+    virtual Address::Ptr create(std::shared_ptr<LowLevelAddress> lowLevelAddress) const;
+    virtual LowLevelAddress& getLowLevelAddress() const;
 
   private:
     /** The path of this LocalAddress */
     const std::string path;
 
     /** The private implementation of this LocalAddress */
-    const LocalAddressPimpl* const pimpl;
+    std::shared_ptr<LocalAddressPimpl> pimpl;
   };
 
 } // namespace BsdSockets

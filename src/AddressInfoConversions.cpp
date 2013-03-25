@@ -3,11 +3,11 @@
 
 #include <map>
 
-#include "AddressInfo.h"
+#include "AddressInfoConversions.h"
 
 namespace BsdSockets {
 
-  int socketDomainToRaw(SocketDomain domain) {
+  int socketDomainToLowLevel(SocketDomain domain) {
     static const std::map<SocketDomain, int> map =
       {
         {SocketDomain::INET4, PF_INET },
@@ -27,7 +27,7 @@ namespace BsdSockets {
     return found->second;
   }
 
-  SocketDomain rawToSocketDomain(int raw) {
+  SocketDomain lowLevelToSocketDomain(int lowLevel) {
     static const std::map<int, SocketDomain> map =
       {
         {PF_INET, SocketDomain::INET4 },
@@ -39,7 +39,7 @@ namespace BsdSockets {
         {PF_NDRV, SocketDomain::RAW }
       };
 
-    const auto found = map.find(raw);
+    const auto found = map.find(lowLevel);
     if(found == map.end()) {
       throw std::invalid_argument("Unknown SocketDomain");
     }
@@ -48,7 +48,7 @@ namespace BsdSockets {
   }
 
 
-  int socketTypeToRaw(SocketType type) {
+  int socketTypeToLowLevel(SocketType type) {
     static const std::map<SocketType, int> map =
       {
 	{SocketType::STREAM, SOCK_STREAM},

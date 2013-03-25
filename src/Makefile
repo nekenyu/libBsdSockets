@@ -7,7 +7,7 @@ all:
 TOPDIR= ../
 -include $(TOPDIR)/Makefile.config.incl
 
-TARGET= ../lib/libBsdSocket.a
+TARGET= $(LIB_BSD_SOCKET)
 all: $(TARGET)
 
 SRC:= $(wildcard *.cpp)

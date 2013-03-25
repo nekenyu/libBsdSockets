@@ -1,0 +1,12 @@
+/**
+\page low-level-address-design Low-Level Address Classes Design
+
+LowLevelAddress is an encapsulated part of Address handling which isolates low-level details and includes. LowLevelAddress also allows an Address to be used to create a new address in ServerSocket::accept() by using Address.makeTempLowLevelAddress() to create a LowLevelAddress to use in accepting the socket then give to Address.create() to create a new instance of that Address type.
+
+LowLevelAddressType is a template implementation of LowLevelAddress to manage a sockaddr-equivalent structure.
+
+\note ServerSocket.accept() expects the accepted socket to have an address of the same type as the ServerSocket. Further, if the returned address is of an unspecivied type, it will create an address of the same type as the address of ServerSocket.
+
+\note Address.create expects a LowLevelAddress an appropriate LowLevelAddress such as the one given by makeTempLowLevelAddress() on the same object / class.
+
+*/

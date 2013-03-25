@@ -1,6 +1,6 @@
 .DS_Store
 *.d
-doc/doxygen
+doc_built
 *~
 *.bak
 *.o

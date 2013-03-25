@@ -3,33 +3,36 @@ all:
 # Top Level Makefile
 #
 
-# Configuration
-#
-# TODO: Clean this
-
-# Subdirectories to be made
+# Subdirectories to be made and dependencies
 #
 
 SUBDIRS+= src
 SUBDIRS+= examples
 SUBDIRS+= test
+test: src
+examples: src
 
+# Targets supported
+#
 all clean cleaner cleanest: $(SUBDIRS)
 all: TARGET=all
 clean: TARGET=clean
 cleaner: TARGET=cleaner
 cleanest: TARGET=cleanest
 
-# Recursive Make 
+# Recursive make in the subdirectories
 #
-
 .PHONY: subdirs $(SUBDIRS)
 subdirs: $(SUBDIRS)
 
 $(SUBDIRS):
+	@echo Entering directory \`$@\'
 	make -C $@ $(TARGET)
+	@echo Leaving directory \`$@\'
 
-test: src
+
+# Other tasks
+#
 
 .PHONY: doxygen
 doxygen: all

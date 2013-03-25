@@ -3,7 +3,9 @@
 # Makefile.config.incl
 #
 
-CPP=g++-mp-4.7
+# Note: This defaults to GCC 4.7 as used in development.
+# TODO: make this conditional
+CPP= g++-mp-4.7
 CPPFLAGS += -std=c++11
 
 INCLUDE= $(TOPDIR)/include
@@ -15,8 +17,8 @@ endif
 
 MAKEDEPEND= $(CPP) -MM $(CPPFLAGS) -o $*.d $<
 
-LIB_BSD_SOCKET= $(TOPDIR)/lib/libBsdSocket.a
-LIB_BSD_SOCKET_INCL= -L $(TOPDIR)/lib -l BsdSocket
+LIB_BSD_SOCKET= $(TOPDIR)/lib/libBsdSockets.a
+LIB_BSD_SOCKET_INCL= -L $(TOPDIR)/lib -l BsdSockets
 
 LIB_CPPUNIT_INCL= -L /opt/local/lib -lcppunit
 

@@ -3,8 +3,9 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <stdexcept>
+#include <memory>
 
-#include "RawAddress.h"
+#include "LowLevelAddress.h"
 #include "LocalAddress.h"
 using namespace BsdSockets;
 
@@ -29,24 +30,24 @@ public:
   }
 
   void blankPath() {
-    const LocalAddress addr("");
+    LocalAddress::Ptr addr = LocalAddress::create("");
   }
 
   void goodPath() {
     const std::string requested = "p";
-    const LocalAddress addr(requested);
-    CPPUNIT_ASSERT(SocketDomain::LOCAL == addr.getSocketDomain());
-    CPPUNIT_ASSERT_EQUAL(requested, addr.getPath());
+    LocalAddress::Ptr addr = LocalAddress::create(requested);
+    CPPUNIT_ASSERT(SocketDomain::LOCAL == addr->getSocketDomain());
+    CPPUNIT_ASSERT_EQUAL(requested, addr->getPath());
 
     // This is ugly, but it wouldn't let me reinterpret cast without pointers
     // and I hate c-style casts...
-    const struct sockaddr_un& ref = *reinterpret_cast<const struct sockaddr_un*>(&addr.getImpl().getSockAddr());
+    const struct sockaddr_un& ref = *reinterpret_cast<const struct sockaddr_un*>(&addr->getLowLevelAddress().getSockAddr());
     CPPUNIT_ASSERT(requested == ref.sun_path);
-    CPPUNIT_ASSERT(SocketType::STREAM == addr.getSocketType());
+    CPPUNIT_ASSERT(SocketType::STREAM == addr->getSocketType());
   }
 
   void pathTooLong() {
-    const LocalAddress addr(std::string().assign(256,'z'));
+    LocalAddress::Ptr addr = LocalAddress::create(std::string().assign(256,'z'));
   }
 };
 

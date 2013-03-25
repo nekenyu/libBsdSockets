@@ -1,0 +1,35 @@
+/**
+\mainpage BsdSockets
+
+\section intro_sec Introduction
+
+This project is a set of convenience wrappers around the BSD socket library.
+
+The aim is to provide a far easier means of usage than the low level socket calls while providing the ability to do more detailed actions.
+
+Examples:
+- Creating an Internet Address with a call using the host name and service name.
+- Creating a ServerSocket from and Address ready to select and accept incoming connections in one line; however, the bind and listen calls can also be deferred by calling bind and listen as desired after create.
+- Creating a ClientSocket ready to select data in one line; however, the connection call can also be deferred by calling connect as desired after create.
+
+\section install_sec Installation
+
+This library is written against the C++11 standard.  Developoment is done against GCC 4.7.  Compatibily should be gauged based upon the versions developed and used against.
+
+Building:
+- Build with: make all
+- Build documentation with: make doxygen
+- Run the test with: make doxygen
+- All of the above with: make all
+Usage:
+- Include the headers in include
+- Link against the library -lBsdSockets
+
+\section other-pages Other Pages
+
+- @ref design -- Design Document For libBsdSockets
+- Examples -- Examples of using libBsdSockets are located in the section Examples
+- @ref todo -- Items to be done
+- @ref support-tools -- Design of the tools the deliver the project, not generally of use to the library user
+
+*/

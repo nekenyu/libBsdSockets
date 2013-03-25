@@ -1,0 +1,69 @@
+/**
+\page design Design Documentation For libBsdSockets
+
+\tableofcontents
+
+\section overview Overview
+
+ibBsdSockets is a C++ wrapper implementation of the bsd socket calls:
+- socket()
+- close()
+- read()
+- write()
+- bind()
+- listen()
+- accept()
+- connect()
+- select()
+- poll()
+- getsockopt()
+- setsockopt()
+
+\note Due to the varargs employed by ioctl(), this cannot be included. However, the raw socket will be available if needed for such calls.
+
+Additionally, address handling is include because it is related and cumbersome.
+
+\section premises Premises
+
+\subsection ease-of-use Ease Of Use
+
+The library should be easy to use in the general case, should not inhibit the fringe cases, and should support threading.
+
+\subsection thread-safety Thread Safety
+
+Presently, this objects created by this library may only be used in their own thread.  Different threads may create different objects.  For example, multiple threads may create their own ClientSocket; however, Sockets accepted from a ServerSocket must remain in the same thread as the Server Socket.
+
+Thread safety is to be addressed soon.  The main issue is passing accepted sockets to a new thread to then use the Socket.  It really isn't very useful to make each Socket thread-safe from multiple threads since responses usually have to be isolated before being acted on, anyway.
+
+\subsection bleeding Bleeding
+
+Bleeding is the exposure of the underlying implementation to the callers.  This appears in several ways:
+conceptsdata typesconstantsheadersThe entire concept, of course, is a bleed.  The objective is to present the concept in an easier to use form.
+
+Data types are a big thing we are trying to avoid exposing.  Particularly as they pertain to requiring headers and exposing tedious work to the user.  Ultimately, however, the caller may need to do things like ioctl which we can't provide ourselves due to the varargs.  As such, low-level data types are typically available but as forward-declarable references or pointers to avoid bleeding headers.
+
+There are a lot of constants in the BSD sockets.  If there is a reasonable list that we can encapsulate, we do so.  If the list is volatile or dependent upon the platform, then we may elect to expose the constant because not doing so may limit the caller's options.
+
+Headers are a pain in the tail. A main objective is to avoid requiring the system headers being included.  Obviously, as said above, the caller is free to include them if it is necessary to perform operations on low-level data structures beyond the scope of this project.
+
+\subsection const_objects Const Objects
+
+As a general rule, transition of state within an object is minimized.  This reduces complexity and usage of the classes.
+
+Examples:
+- Addresses cannot be modified after creation, only read.  Once initialized, there is nothing to check.
+- Sockets open on construct and close on destruct.  That just leaves connect/bind & listen -- an issue still to be addressed.
+
+\subsection shared_ptr shared_ptr Usage
+
+The nature of moving slice-able base classes around led to pointers.  Pointers lead to problems.  So, the library has adopted shared_ptr usage everywhere.  Even classes provide these typedefed.  For example, Socket::Ptr is a `typedef std::shared_ptr<Socket>;`  It can be noted that to decouple dependency, there are some places that forward declare a class and explicitly use std::shared_ptr<Socket> to avoid lo9ts of includes.
+
+\section architecture Architecture
+
+libBsdSockets consists of the following parts:
+- [General Support](@ref general-support-design) -- i.e. AddressInfo
+- [Low-Level Address](@ref low-level-address-design) -- Low-Level bits of Addresses encapsulated to avoid bleeding, but still available.
+- [Address](@ref address-design) -- Address class and its derived classes supporting the various types of socket addresses
+- [Socket](@ref socket-design) -- Actual Sockets for Server, Client, etc.
+
+*/

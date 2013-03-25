@@ -1,0 +1,14 @@
+/**
+\page address-design Address Classes Design
+
+The Address classes provide the higher-level details of Addresses for Sockets and access to the LowLevelAddress details.
+
+The Address base class provides the common information for all types of addresses and a pure-virtual method to access the LowLevelAddress.  This separate class minimizes bleed of the low-level details.
+
+The Address base class also provides template methods for creating a temporary low-level address and to create an Address of the derived type from that temporary buffer.
+
+Address derived classes for various addresses including InetAddress and LocalAddress (formerly Unix Domain Sockets) are provided.  Callers may provide their own Address derived classes for other purposes.
+
+\see @ref low-level-address-design
+
+*/

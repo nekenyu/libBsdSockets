@@ -10,15 +10,19 @@ namespace BsdSockets {
   /*
    * Forward Declarations
    */
-  class RawAddress;
+  class LowLevelAddress;
   
-  /** Base class for all addresses used by libBsdSocket.
+  /** \class Address
+   *
+   * \brief Base class for all addresses.
    *
    * Provides common information for all types of addresses and a pure-virtual
-   * method to access the RawAddress.
+   * method to access the LowLevelAddress.
    */
   class Address {
   public:
+    typedef std::shared_ptr<Address> Ptr;
+
     /** Virtual destructor to support derived classes */
     virtual ~Address();
     
@@ -53,8 +57,19 @@ namespace BsdSockets {
     int getProtocol() const;
     
   public:
-    /** Method for derived classes to provide access to the RawAddress information */
-    virtual const RawAddress& getImpl() const = 0;
+    /** @return a LowLevelAddress suitable for create() */
+    virtual std::shared_ptr<LowLevelAddress> makeTempLowLevelAddress() const = 0;
+
+    /** Create a new Address from a LowLevelAddress using this Address as a template.
+     *
+     * @param lowLevelAddress data to create from
+     *
+     * @return Address created
+     */
+    virtual Address::Ptr create(std::shared_ptr<LowLevelAddress> lowLevelAddress) const = 0;
+    
+    /** Method for derived classes to provide access to the LowLevelAddress information */
+    virtual const LowLevelAddress& getLowLevelAddress() const = 0;
 
   private:
     /** The SocketDomain of the Address */

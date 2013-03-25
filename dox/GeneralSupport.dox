@@ -1,0 +1,10 @@
+/**
+\page general-support-design General Support Design
+
+\section address-info Address Information
+
+In AddresInfo.h, Address require certain constants.  Common constants are wrapped with enum class constants.
+
+In AddressInfoConversion.h, conversions to and/or from low-level values are defined.
+
+*/

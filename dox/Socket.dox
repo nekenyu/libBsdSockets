@@ -1,0 +1,18 @@
+/**
+\page socket-design Socket Classes Design
+
+The Socket classes simplify and encapsulate the low-level details of sockets.
+
+The Socket base class provides the basic, common functionality of all sockets:
+- creation of a socket (during the constructor called from create)
+- closing of the socket (during the destructor),
+- send and receive
+- socket option setting and getting
+
+As advanced features, a Socket can be created from existing socket id (and Address) and the low-level socket id is available.
+
+The Socket derived classes for ServerSocket and ClientSocket address server and client specific states, respectively.
+
+The Socket derived classes provide static create methods as well as a compilimentary method to create the Socket and connect or bind & listen for ease of use.
+
+*/

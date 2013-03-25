@@ -6,8 +6,9 @@
 #include <stdexcept>
 #include <system_error>
 #include <sstream>
+#include <memory>
 
-#include "RawAddress.h"
+#include "LowLevelAddress.h"
 #include "InetAddress.h"
 using namespace BsdSockets;
 
@@ -34,30 +35,30 @@ public:
   }
 
   void blankBoth() {
-    const InetAddress addr = InetAddress::create(SocketType::STREAM, "", "");
+    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, "");
   }
 
   void badServiceNumber() {
-    const InetAddress addr = InetAddress::create(SocketType::STREAM, "", "9999999999999");
+    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, "9999999999999");
   }
 
   void badServiceName() {
-    const InetAddress addr = InetAddress::create(SocketType::STREAM, "", "(*&)(*&)(*&)(*&)");
+    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, "(*&)(*&)(*&)(*&)");
   }
 
   void badHostname() {
-    const InetAddress addr = InetAddress::create(SocketType::STREAM, "foo...", "");
+    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, "", "foo...");
   }
 
   void hostnameLoopback4() {
     const std::string requested = "127.0.0.1";
-    const InetAddress addr = InetAddress::create(SocketType::STREAM, requested, "");
-    CPPUNIT_ASSERT(SocketDomain::INET4 == addr.getSocketDomain());
-    CPPUNIT_ASSERT_EQUAL(requested, addr.getRequestedAddress());
-    CPPUNIT_ASSERT_EQUAL(requested, addr.getActualAddress());
-    CPPUNIT_ASSERT(SocketType::STREAM == addr.getSocketType());
+    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, "", requested);
+    CPPUNIT_ASSERT(SocketDomain::INET4 == addr->getSocketDomain());
+    CPPUNIT_ASSERT_EQUAL(requested, addr->getRequestedAddress());
+    CPPUNIT_ASSERT_EQUAL(requested, addr->getActualAddress());
+    CPPUNIT_ASSERT(SocketType::STREAM == addr->getSocketType());
 
-    const struct sockaddr_in& sin = (sockaddr_in&) addr.getImpl().getSockAddr();
+    const struct sockaddr_in& sin = (sockaddr_in&) addr->getLowLevelAddress().getSockAddr();
     const u_long s_addr = sin.sin_addr.s_addr;
     const u_long s_addr_host = ntohl(s_addr);
     const u_long expected = (127 << 24) | 1;
@@ -66,18 +67,18 @@ public:
 
   void hostnameLoopback6() {
     const std::string requested = "::1";
-    const InetAddress addr = InetAddress::create(SocketType::STREAM, requested, "");
-    CPPUNIT_ASSERT(SocketDomain::INET6 == addr.getSocketDomain());
-    CPPUNIT_ASSERT(requested == addr.getRequestedAddress());
-    CPPUNIT_ASSERT("::" == addr.getActualAddress());
-    CPPUNIT_ASSERT(SocketType::STREAM == addr.getSocketType());
+    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, "", requested);
+    CPPUNIT_ASSERT(SocketDomain::INET6 == addr->getSocketDomain());
+    CPPUNIT_ASSERT(requested == addr->getRequestedAddress());
+    CPPUNIT_ASSERT("::" == addr->getActualAddress());
+    CPPUNIT_ASSERT(SocketType::STREAM == addr->getSocketType());
   }
 
   void serviceNameSmtp() {
     const std::string requested = "smtp";
-    const InetAddress addr = InetAddress::create(SocketType::STREAM, "", requested);
-    CPPUNIT_ASSERT_EQUAL(requested, addr.getServiceName());
-    CPPUNIT_ASSERT_EQUAL(25u, addr.getPort());
+    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, requested);
+    CPPUNIT_ASSERT_EQUAL(requested, addr->getServiceName());
+    CPPUNIT_ASSERT_EQUAL(25u, addr->getPort());
   }
 
   void serviceNumber() {
@@ -86,16 +87,16 @@ public:
     str << port;
     const std::string requested = str.str();
 
-    const InetAddress addr = InetAddress::create(SocketType::STREAM, "", requested);
-    CPPUNIT_ASSERT_EQUAL(port, addr.getPort());
+    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, requested);
+    CPPUNIT_ASSERT_EQUAL(port, addr->getPort());
   }
 
   void hostnameLoopback4Single() {
     const std::string requested = "127.0.0.1";
-    std::vector<InetAddress> found;
-    InetAddress::create(SocketType::STREAM, requested, "", found);
+    std::vector<InetAddress::Ptr> found;
+    InetAddress::create(SocketType::STREAM, "", requested, found);
     CPPUNIT_ASSERT_EQUAL(1, (int) found.size());
-    CPPUNIT_ASSERT_EQUAL(requested, found.at(0).getActualAddress());
+    CPPUNIT_ASSERT_EQUAL(requested, found.at(0)->getActualAddress());
   }
 };
 

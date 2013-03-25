@@ -1,93 +1,65 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <string.h>
+#include <memory>
 
 #include <stdexcept>
 #include <string>
 
 #include "LocalAddress.h"
 
-#include "RawAddress.h"
+#include "LowLevelAddress.h"
 
 namespace BsdSockets {
+  typedef LowLevelAddressType<struct sockaddr_un> LocalLowLevelAddress;
 
-  /** The private implementation of LocalAddress.
+  /** \brief The private implementation of LocalAddress.
    *
-   * This provides the RawAddress.
+   * This provides the LowLevelAddress.
    */
-  class LocalAddressPimpl : public RawAddress {
+  class LocalAddressPimpl : public LocalLowLevelAddress {
   public:
     /** Create by encoding thePath
      *
      * @param thePath to encode
+     * @param allowBlank true if blank is allowed, which is really only from accept()
      */
-    LocalAddressPimpl(const std::string& thePath)
-      : length(thePath.size() + sizeof(rawAddress.sun_family))
+    LocalAddressPimpl(const std::string& thePath, bool allowBlank)
     {
-      if(thePath.empty()) {
+      if(!allowBlank && 0 == thePath.size()) {
 	throw std::invalid_argument("thePath cannot be blank");
       }
 
-      if(thePath.size() >= sizeof(rawAddress.sun_path)) {
+      if(thePath.size() >= sizeof(lowLevelAddress.sun_path)) {
 	throw std::invalid_argument("thePath is too long for this system");
       }
 
-      rawAddress.sun_family = AF_LOCAL;
-      strcpy(rawAddress.sun_path, thePath.c_str());
-    }
-
-    /** Create as copy of rhs.
-     *
-     * @param rhs to copy
-     */
-    LocalAddressPimpl(const LocalAddressPimpl& rhs)
-      : length(rhs.length)
-    {
-      memcpy(&rawAddress, &rhs.rawAddress, sizeof(rawAddress));
+      lowLevelAddress.sun_family = AF_LOCAL;
+      strcpy(lowLevelAddress.sun_path, thePath.c_str());
     }
 
   private:
     LocalAddressPimpl() = delete;
+    LocalAddressPimpl(const LocalAddressPimpl& rhs) = delete;
     LocalAddressPimpl(LocalAddressPimpl&& rhs) = delete;
     LocalAddressPimpl& operator=(const LocalAddressPimpl& rhs) = delete;
     LocalAddressPimpl& operator=(LocalAddressPimpl&& rhs) = delete;
-
-  public:
-    virtual const struct sockaddr& getSockAddr() const {
-      // This is ugly, but it wouldn't let me reinterpret cast without pointers
-      // and I hate c-style casts...
-      return *reinterpret_cast<const struct sockaddr*>(&rawAddress);
-    }
-
-    virtual socklen_t getSockLen() const {
-      return length;
-    }
-
-  private:
-    /** The length of the raw address */
-    const int length;
-
-    /** The low-level raw address */
-    struct sockaddr_un rawAddress;
   };
 
   /*
    * LocalAddress Implementation
    */
 
+  LocalAddress::Ptr LocalAddress::create(const std::string& thePath) {
+    return LocalAddress::Ptr(new LocalAddress(thePath, false));
+  }
+
   LocalAddress::~LocalAddress() {
-    delete pimpl;
   }
 
-  LocalAddress::LocalAddress(const LocalAddress& rhs)
-    : Address(rhs),
-      path(rhs.path), pimpl(new LocalAddressPimpl(*rhs.pimpl))
-  {  
-  }
-
-  LocalAddress::LocalAddress(const std::string& thePath)
+  LocalAddress::LocalAddress(const std::string& thePath, bool allowBlank)
     : Address(SocketDomain::LOCAL, SocketType::STREAM, 0),
-      path(thePath), pimpl(new LocalAddressPimpl(thePath))
+      path(thePath), pimpl(new LocalAddressPimpl(thePath, allowBlank))
   {
     if(nullptr == pimpl) {
       throw new std::invalid_argument("Invalid path");
@@ -98,7 +70,20 @@ namespace BsdSockets {
     return path;
   }
 
-  const RawAddress& LocalAddress::getImpl() const {
+  LowLevelAddress::Ptr LocalAddress::makeTempLowLevelAddress() const {
+    return LowLevelAddress::Ptr(new LocalLowLevelAddress());
+  }
+
+  Address::Ptr LocalAddress::create(std::shared_ptr<LowLevelAddress> lowLevelAddress) const {
+    if(AF_LOCAL != lowLevelAddress->getSockAddr().sa_family) {
+      throw std::invalid_argument("LowLevelAddress is of wrong type for LocalAddress to create");
+    }
+
+    const struct sockaddr_un& ref = *reinterpret_cast<const struct sockaddr_un*>(&lowLevelAddress->getSockAddr());
+    return Address::Ptr(new LocalAddress(ref.sun_path, true));
+  }
+
+  LowLevelAddress& LocalAddress::getLowLevelAddress() const {
     return *pimpl;
   }
 
