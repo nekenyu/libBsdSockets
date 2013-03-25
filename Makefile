@@ -39,7 +39,7 @@ doxygen: all
 	doxygen Doxyfile
 
 cleanest:
-	-rm -rf doc/doxygen
+	-rm -rf doc_built
 
 runTest: all
 	test/cppunitTest
