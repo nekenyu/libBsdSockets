@@ -30,7 +30,7 @@ This project is released under the [BSD 3-Clause License](http://opensource.org/
 
 \section install_sec Installation
 
-This library is written against the C++11 standard.  Developoment is done against GCC 4.7.  Compatibily should be gauged based upon the versions developed and used against.
+This library is written against the C++11 standard.  Developoment is done against GCC 4.7 with the option -std=c++11.  Compatibily should be gauged based upon the versions developed and used against.
 
 Building:
 - Build with: make all
