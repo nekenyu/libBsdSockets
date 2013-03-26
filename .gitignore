@@ -1,0 +1,8 @@
+.DS_Store
+*.bak
+*~
+examples/
+doc_built/
+lib/
+src/
+test/
