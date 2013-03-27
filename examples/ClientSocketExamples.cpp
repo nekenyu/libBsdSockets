@@ -23,8 +23,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 using namespace BsdSockets;
 
-void clientSocketExamples() {
+int main(int argc, char** argv) {
   InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, "12345", "127.0.0.1");
   ClientSocket::Ptr client = ClientSocket::create(addr);
   client->connect();
+
+  return 0;
 }

@@ -12,7 +12,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 */
 
-
 #include <sys/socket.h>
 
 #include <memory>
@@ -24,8 +23,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 using namespace BsdSockets;
 
-void serverSocketExamples() {
-
+int main(int argc, char** argv) {
   InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, "12345", "127.0.0.1");
   ServerSocket::Ptr server = ServerSocket::create(addr);
   server->bind();
@@ -40,4 +38,6 @@ void serverSocketExamples() {
   if(readyToRead) {
     Socket::Ptr accepted = server->accept();
   }
+
+  return 0;
 }

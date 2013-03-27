@@ -24,7 +24,7 @@ using namespace BsdSockets;
 
 using namespace std;
 
-void inetAddressExamples() {
+int main(int argc, char** argv) {
   // Invalid service
   try {
     InetAddress::Ptr invalid = InetAddress::create(SocketType::STREAM, "9999999999");
@@ -49,6 +49,6 @@ void inetAddressExamples() {
   // Collecting all matching addresses, such as the multiple IPs behind google.com
   std::vector<InetAddress::Ptr> google;
   InetAddress::create(SocketType::STREAM, "http", "google.com", google);
+
+  return 0;
 }
-
-

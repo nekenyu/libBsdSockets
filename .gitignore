@@ -6,3 +6,4 @@ doc_built
 *.o
 *.d
 test/cppunitTest
+examples/*.exe

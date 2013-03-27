@@ -19,7 +19,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include "LocalAddress.h"
 using namespace BsdSockets;
 
-void localAddressExamples() {
+int main(int argc, char** argv) {
   // Empty Address is invalid
   try {
     LocalAddress::Ptr invalid = LocalAddress::create("");
@@ -34,4 +34,6 @@ void localAddressExamples() {
 
   // Valid address
   LocalAddress::Ptr valid = LocalAddress::create("./my-socket");
+
+  return 0;
 }
