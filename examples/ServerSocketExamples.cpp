@@ -17,6 +17,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include <memory>
 #include <string>
 #include <vector>
+#include <thread>
 
 #include "InetAddress.h"
 #include "ServerSocket.h"
@@ -31,11 +32,8 @@ int main(int argc, char** argv) {
 
   // ...
   const int timeout_ms = 50;
-  bool readyToRead = false;
-  bool readyToWrite = false;
-  bool readyWithError =false;
-  server->select(timeout_ms, readyToRead, readyToWrite, readyWithError);
-  if(readyToRead) {
+  const SelectResult result = server->select(timeout_ms, true, false, true);
+  if(result.readyToRead) {
     Socket::Ptr accepted = server->accept();
   }
 

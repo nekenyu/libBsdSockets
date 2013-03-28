@@ -31,9 +31,11 @@ The library should be easy to use in the general case, should not inhibit the fr
 
 \subsection thread-safety Thread Safety
 
-Presently, this objects created by this library may only be used in their own thread.  Different threads may create different objects.  For example, multiple threads may create their own ClientSocket; however, Sockets accepted from a ServerSocket must remain in the same thread as the Server Socket.
+Thes objects created by this library may only be used in the thread they were created in.  Different threads may create different objects.  For example, multiple threads may create their own ClientSocket.
 
-Thread safety is to be addressed soon.  The main issue is passing accepted sockets to a new thread to then use the Socket.  It really isn't very useful to make each Socket thread-safe from multiple threads since responses usually have to be isolated before being acted on, anyway.
+Sockets accepted from a ServerSocket must remain in the same thread as the ServerSocket.  Sockets accepted into a new thread create a new C++11 thread with a function or function object to run.
+
+With the exception of accepting a thread into a new server, there are no built in threading facilities as they would most likely need to include logic and data from the users of the library.  Accepting a socket into a new thread was a clear need.  For portability, C++11 threads were chosen despite the fact that they may conflict with potential users.
 
 \subsection bleeding Bleeding
 

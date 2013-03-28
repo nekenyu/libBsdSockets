@@ -12,6 +12,11 @@ Examples:
 - Creating a ServerSocket from and Address ready to select and accept incoming connections in one line; however, the bind and listen calls can also be deferred by calling bind and listen as desired after create.
 - Creating a ClientSocket ready to select data in one line; however, the connection call can also be deferred by calling connect as desired after create.
 
+Source Code Examples:
+- \ref EchoServerExample.cpp showing a blocking-read based SocketServer in a thread and each accepted connection in a thread
+- \ref CommandServerExample.cpp showing a select based SocketServer in a thread and each accepted connection in a thread with synchronization to terminate and join all threads
+
+
 \section license License
 
 This project is released under the [BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause).

@@ -31,9 +31,6 @@ namespace BsdSockets {
    *
    * \brief Local Socket Address (formerly Unix Domain Socket) Address representing
    * a named pipe's name.
-   *
-   * \example LocalAddressExamples.cpp
-   * Examples of using a LocalAddress
    */
   class LocalAddress : public Address {
   public:

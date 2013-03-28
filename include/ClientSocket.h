@@ -31,9 +31,6 @@ namespace BsdSockets {
    * \brief Client Socket providing ability to connect to and Address.
    *
    * This adds to Socket the ability to connetc() to an address.
-   *
-   * \example ClientSocketExamples.cpp
-   * Examples of using a ClientSocket
    */
   class ClientSocket : public Socket {
   public:

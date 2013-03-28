@@ -30,10 +30,7 @@ namespace BsdSockets {
    *
    * \brief Server Socket providing ability to bind, listen and accept connections
    *
-   * \example ServerSocketExamples.cpp
-   * Example of using a Server Socket
-   *
-   * \note Datagram sockets may send/receive with the ServerSocket directly.
+   * Datagram sockets may send/receive with the ServerSocket directly.
    * Other Sockets use the accept() returned Sockets.
    */
   class ServerSocket : public Socket {
@@ -92,6 +89,15 @@ namespace BsdSockets {
      * @return the Socket accepted
      */
     Socket::Ptr accept() const;
+
+    /** Accept a connection on the Server Socket and pass it as the argument to
+     * the function-wrapper toCall.
+     *
+     * @param toCall function to call with new socket
+     *
+     * @return thread created
+     */
+    std::thread acceptInNewThread(std::function<void (Socket::Ptr)> toCall);
   };
 
 } // namespace BsdSockets

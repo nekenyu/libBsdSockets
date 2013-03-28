@@ -26,6 +26,32 @@ namespace BsdSockets {
    */
   class Address;
 
+  /** \class SelectResult
+   * \brief Result of Socket::select() indicating the result status.
+   */
+  class SelectResult {
+  public:
+    const bool checkedRead;
+    const bool checkedWrite;
+    const bool checkedError;
+
+    const bool readyToRead;
+    const bool readyToWrite;
+    const bool readyWithError;
+
+    const bool ready;
+
+    SelectResult(
+      bool theCheckedRead, bool theCheckedWrite, bool theCheckedError,
+      bool theReadyToRead, bool theReadyToWrite, bool theReadyWithError
+    )
+      : checkedRead(theCheckedRead), checkedWrite(theCheckedWrite), checkedError(theCheckedError),
+      readyToRead(theReadyToRead), readyToWrite(theReadyToWrite), readyWithError(theReadyWithError),
+      ready(readyToRead || readyToWrite || readyWithError)
+    {
+    }  
+  };
+
   /** \class Socket
    *
    * \brief BSD Socket base class providing the basic, common functionality between
@@ -76,14 +102,14 @@ namespace BsdSockets {
   public:
     /** Check state of socket without timeout_ms
      *
-     * @param[out] timeout_ms timeout in milliseconds to stop trying to check
-     * @param[out] readyToRead set true if ready to read, otherwise false
-     * @param[out] readyToWrite set true if ready to write, otherwise false
-     * @param[out] readyWithError set true if ready with error, otherwise false
+     * @param timeout_ms timeout in milliseconds to stop trying to check
+     * @param checkRead true if read should be checked
+     * @param checkWrite true if write should be checked
+     * @param checkError true if error should be checked
      *
-     * @return bool true if the socket is ready in any way, otherwise false
+     * @return SelectResult containing results of select
      */
-    bool select(int timeout_ms, bool& readyToRead, bool& readyToWrite, bool& readyWithError);
+    SelectResult select(int timeout_ms, bool checkRead, bool checkWrite, bool checkError);
 
     /** poll the Socket for eventsToLookFor timeout out after timeout_ms
      *
@@ -113,9 +139,21 @@ namespace BsdSockets {
      * @param length bytes to read from socket and write to buffer
      * @param flags to use when receiving.
      * 
+     * @return bytes read
+     *
      * \see %send() flags parameter for details of flags
      */
     ssize_t receive(void *buffer, size_t length, int flags = 0) const;
+
+    /** Read up to length bytes into buffer with flags from socket, blocking
+     * until ready or error..
+     *
+     * @param buffer to write
+     * @param length bytes to read from socket and write to buffer
+     *
+     * @return bytes read.  0 is a remote closed socket.
+     */
+    ssize_t blockingReceive(void *buffer, size_t length) const;
 
   public:
     /** Get socket option optionName at network level, saving to buffer

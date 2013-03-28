@@ -58,26 +58,26 @@ namespace BsdSockets {
     }
   }
 
-  bool Socket::select(int timeout_ms, bool& readyToRead, bool& readyToWrite, bool& readyWithError) {
+  SelectResult Socket::select(int timeout_ms, bool checkRead, bool checkWrite, bool checkError) {
     struct timeval timeout;
     if(0 != timeout_ms) {
       timeout.tv_sec = timeout_ms / 1000;
       timeout.tv_usec = 1000 * (timeout_ms % 1000);
     }
   
-    fd_set read;  FD_ZERO(&read);  FD_SET(lowLevelSocket, &read);
-    fd_set write; FD_ZERO(&write); FD_SET(lowLevelSocket, &write);
-    fd_set error; FD_ZERO(&error); FD_SET(lowLevelSocket, &error);
+    fd_set read;  FD_ZERO(&read);  if(checkRead) { FD_SET(lowLevelSocket, &read); }
+    fd_set write; FD_ZERO(&write); if(checkWrite) { FD_SET(lowLevelSocket, &write); }
+    fd_set error; FD_ZERO(&error); if(checkError) { FD_SET(lowLevelSocket, &error); }
     const int result = ::select(lowLevelSocket + 1, &read, &write, &error, 0 == timeout_ms ? nullptr : &timeout);
     if(-1 == result) {
       throw std::system_error(errno, std::system_category());
     }
 
-    readyToRead = FD_ISSET(lowLevelSocket, &read);
-    readyToWrite = FD_ISSET(lowLevelSocket, &write);
-    readyWithError = FD_ISSET(lowLevelSocket, &error);
+    const bool readyToRead = FD_ISSET(lowLevelSocket, &read);
+    const bool readyToWrite = FD_ISSET(lowLevelSocket, &write);
+    const bool readyWithError = FD_ISSET(lowLevelSocket, &error);
 
-    return readyToRead || readyToWrite || readyWithError;
+    return SelectResult(checkRead, checkWrite, checkError, readyToRead, readyToWrite, readyWithError);
   }
 
   short Socket::poll(int timeout_ms, short eventsToLookFor) {
@@ -104,6 +104,15 @@ namespace BsdSockets {
 
   ssize_t Socket::receive(void* buffer, size_t length, int flags) const {
     const ssize_t result = ::recv(lowLevelSocket, buffer, length, flags);
+    if(-1 != result) {
+      return result;
+    }
+
+    throw std::system_error(errno, std::system_category());
+  }
+
+  ssize_t Socket::blockingReceive(void* buffer, size_t length) const {
+    const ssize_t result = ::read(lowLevelSocket, buffer, length);
     if(-1 != result) {
       return result;
     }

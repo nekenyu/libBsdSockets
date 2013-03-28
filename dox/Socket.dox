@@ -7,6 +7,7 @@ The Socket base class provides the basic, common functionality of all sockets:
 - creation of a socket (during the constructor called from create)
 - closing of the socket (during the destructor),
 - send and receive
+- blocking socket read
 - socket option setting and getting
 
 As advanced features, a Socket can be created from existing socket id (and Address) and the low-level socket id is available.

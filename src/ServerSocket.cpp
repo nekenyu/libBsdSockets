@@ -15,10 +15,72 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include <sys/socket.h>
 #include <system_error>
 #include <memory>
+#include <functional>
+#include <thread>
 
 #include "ServerSocket.h"
 #include "Address.h"
 #include "LowLevelAddress.h"
+
+namespace {
+  using namespace BsdSockets;
+
+  /** Helper method and compound result for Accepting a socket
+   */
+  class AcceptedSocketData {
+  public:
+    /** Create with data
+     *
+     * @param theLowLevelSocket of the accepted socket
+     * @param theAddress of the accepted socket
+     */
+    AcceptedSocketData(int theLowLevelSocket, Address::Ptr theAddress)
+      :lowLevelSocket(theLowLevelSocket), address(theAddress)
+    {
+    }
+
+  public:
+    /** low-level socket id */
+    const int lowLevelSocket;
+    
+    /** Address connected to */
+    Address::Ptr address;
+  };
+
+  /** Do low level socket accept and prepare Address connected to
+   *
+   * @param serverLowLevelSocket low-level socket id for server to accept from
+   * @param serverAddress address of the server socket to build the address of the accepted socket
+   *
+   * @return data for the accepted socket
+   */
+   AcceptedSocketData lowLevelAccept(int serverLowLevelSocket, Address::Ptr serverAddress) {
+     // Accept the socket
+      LowLevelAddress::Ptr lowLevelAddress = serverAddress->makeTempLowLevelAddress();
+      socklen_t len;
+      const int lowLevelSocket = ::accept(serverLowLevelSocket, &lowLevelAddress->getSockAddr(), &len);
+
+      // Verify results
+      if(len > lowLevelAddress->getSockAddrLen()) {
+	throw std::runtime_error("accept over-write the length of the sockaddr for the ServerSocket Address");
+      }
+
+      if(-1 == lowLevelSocket) {
+	throw std::system_error(errno, std::system_category());
+      }
+
+      // Assume the server socket's type if unspecified
+      // TODO: I'd like to do better, but there are no guarantees if we are getting a different 
+      // address tyle, like unspecified accepting from a local socket
+      if(AF_UNSPEC == lowLevelAddress->getSockAddr().sa_family) {
+	lowLevelAddress->getSockAddr().sa_family = serverAddress->getLowLevelAddress().getSockAddr().sa_family;
+      }
+
+      // Build the results
+      return AcceptedSocketData(lowLevelSocket, serverAddress->create(lowLevelAddress));
+    }
+
+} // namespace
 
 namespace BsdSockets {
 
@@ -56,23 +118,18 @@ namespace BsdSockets {
   }
 
   Socket::Ptr ServerSocket::accept() const {
-    LowLevelAddress::Ptr tmp = getAddress()->makeTempLowLevelAddress();
-    socklen_t len;
+    AcceptedSocketData data = lowLevelAccept(getLowLevelSocket(), getAddress());
+    return Socket::create(data.address, data.lowLevelSocket);
+  }
 
-    const int socketCreated = ::accept(getLowLevelSocket(), &tmp->getSockAddr(), &len);
-    if(len > tmp->getSockAddrLen()) {
-      throw std::runtime_error("accept over-write the length of the sockaddr for the ServerSocket Address");
-    }
-
-    if(-1 == socketCreated) {
-      throw std::system_error(errno, std::system_category());
-    }
-    if(AF_UNSPEC == tmp->getSockAddr().sa_family) {
-      tmp->getSockAddr().sa_family = getAddress()->getLowLevelAddress().getSockAddr().sa_family;
-    }
-    
-    Address::Ptr acceptedAddress = Address::Ptr(getAddress()->create(tmp));
-    return Socket::create(acceptedAddress, socketCreated);
+  std::thread ServerSocket::acceptInNewThread(std::function<void (Socket::Ptr)> toCall) {
+    // Note: We rely on the thread-safety of shared_ptr for the address....
+    // This shouldn't be a big deal since it will clear from data in this frame
+    // and thus this thread
+    AcceptedSocketData data = lowLevelAccept(getLowLevelSocket(), getAddress());
+    return std::thread ([=]() {
+	toCall(Socket::create(data.address, data.lowLevelSocket));
+      });
   }
 
 } // namespace BsdSockets

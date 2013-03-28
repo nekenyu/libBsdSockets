@@ -37,9 +37,6 @@ namespace BsdSockets {
    * example, some hostnames are served by multiple IP addresses to load
    * balance.  The caller can use create() to either return the first match or
    * populate a std::vector<InetAddress> with all matches.
-   *
-   * \example InetAddressExamples.cpp
-   * Examples of creating InetAddress instances.
    */
   class InetAddress : public Address {
   public:
