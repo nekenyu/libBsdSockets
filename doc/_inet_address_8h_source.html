@@ -134,19 +134,71 @@ $(document).ready(function(){initNavTree('_inet_address_8h_source.html','');});
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">class </span>LowLevelAddress;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">class </span>InetAddressPimpl;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">  /** \class InetAddress</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">   * \brief Internet Address Class supporting IPv4 and IPv6 and creatable from</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">   * hostnames and service names.</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">   * Most users will create addresses with a hostname and either a service name</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">   * or port number.  This supports that with ease.  Additionally, create() can</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">   * accept a std::vector&lt;InetAddress&gt; to put all matching Addresses into.  For</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">   * example, some hostnames are served by multiple IP addresses to load</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">   * balance.  The caller can use create() to either return the first match or</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">   * populate a std::vector&lt;InetAddress&gt; with all matches.</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_inet_address.html">   41</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_bsd_sockets_1_1_inet_address.html" title="Internet Address Class supporting IPv4 and IPv6 and creatable from hostnames and service names...">InetAddress</a> : <span class="keyword">public</span> <a class="code" href="class_bsd_sockets_1_1_address.html" title="Base class for all addresses.">Address</a> {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00043"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_inet_address.html#a6e383429fa2fb2baf2e6a149a4335cd1">   43</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;InetAddress&gt; <a class="code" href="class_bsd_sockets_1_1_inet_address.html#a6e383429fa2fb2baf2e6a149a4335cd1">Ptr</a>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">    /** Virtual destructor to support derived classes */</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_bsd_sockets_1_1_inet_address.html#a2bab726e2bd76e220e56fe389474917c">~InetAddress</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">    /** Create an address with the given parameters putting all matches into</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">     * created.</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">     * \note Either of address or serviceName may be empty, but not both.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">     * @param socketType the SocketType of the Address</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">     * @param serviceName name of standard service or port number desired, may be empty if address is not</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">     * @param address desired, may be empty if serviceName is not empty</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">     * @param[out] created the container to add created Addresses to</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">     * @param max the limit on the count of Addresses to match, 0 means unlimited matches</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">     * @return count of Addresses added to created</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="class_bsd_sockets_1_1_inet_address.html#ac16ff99d5d718763a388246be1ab406a">create</a>(<a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67e">SocketType</a> socketType, <span class="keyword">const</span> std::string&amp; serviceName, <span class="keyword">const</span> std::string&amp; address,</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;              std::vector&lt;InetAddress::Ptr&gt;&amp; created, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> max = 0);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">    /** Create one address with the given parameters.</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">     * This is a convenience method equivalent to:</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">     * \code</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">     * std::vector&lt;InetAddress&gt; found;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">     * InetAddress::create(type, address, serviceName, found, 1);</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">     * return created.at(0);</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">     * \endcode</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">     * \note Either of address or serviceName may be empty, but not both.</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">     * @param socketType the SocketType of the Address</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">     * @param serviceName name of standard service or port number desired, may be empty if address is not</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">     * @param address desired, may be empty if serviceName is not empty</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">     * @return InetAddress created from first match of address and serviceName</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_bsd_sockets_1_1_inet_address.html#a6e383429fa2fb2baf2e6a149a4335cd1">InetAddress::Ptr</a> <a class="code" href="class_bsd_sockets_1_1_inet_address.html#ac16ff99d5d718763a388246be1ab406a">create</a>(<a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67e">SocketType</a> socketType, <span class="keyword">const</span> std::string&amp; serviceName, <span class="keyword">const</span> std::string&amp; address = <span class="stringliteral">&quot;&quot;</span>);</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">    /** Internal method to instantiate with all const values from static method/</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">     * @param theSocketDomain domain of the socket from the Address</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">     * @param theSocketType type of the socket from the Address</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">     * @param theProtocol protocol of the socket from the address</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">     * @param theServiceName requested by the user</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">     * @param theRequestedAddress used to create the address</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">     * @param pimpl private implementation of the class</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="class_bsd_sockets_1_1_inet_address.html" title="Internet Address Class supporting IPv4 and IPv6 and creatable from hostnames and service names...">InetAddress</a>(<a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629">SocketDomain</a> theSocketDomain, <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67e">SocketType</a> theSocketType, <span class="keywordtype">int</span> theProtocol,</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keyword">const</span> std::string&amp; theServiceName, <span class="keyword">const</span> std::string&amp; theRequestedAddress,</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        std::shared_ptr&lt;InetAddressPimpl&gt; pimpl);</div>
@@ -158,13 +210,20 @@ $(document).ready(function(){initNavTree('_inet_address_8h_source.html','');});
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="class_bsd_sockets_1_1_inet_address.html" title="Internet Address Class supporting IPv4 and IPv6 and creatable from hostnames and service names...">InetAddress</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="class_bsd_sockets_1_1_inet_address.html" title="Internet Address Class supporting IPv4 and IPv6 and creatable from hostnames and service names...">InetAddress</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="class_bsd_sockets_1_1_inet_address.html" title="Internet Address Class supporting IPv4 and IPv6 and creatable from hostnames and service names...">InetAddress</a>&amp; operator=(<a class="code" href="class_bsd_sockets_1_1_inet_address.html" title="Internet Address Class supporting IPv4 and IPv6 and creatable from hostnames and service names...">InetAddress</a>&amp;&amp; rhs) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">    /** @return the string address used to create this */</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="class_bsd_sockets_1_1_inet_address.html#a329e8c8528ab64b26c540ebfac74b5b7">getRequestedAddress</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">    /** @return the computed string address that was actually created.</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">     * \note This may be an IP if a hostname was requested, etc.</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="class_bsd_sockets_1_1_inet_address.html#a900feb8b393acff7e96448f090381474">getActualAddress</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">    /** @return the service name or port number requested for this address may be blank */</span></div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="class_bsd_sockets_1_1_inet_address.html#a30422cfb3a929e63218bb26dcd2f4133">getServiceName</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">    /** @return the actual port associated with this address */</span></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_bsd_sockets_1_1_inet_address.html#afbaab9f4e5a4fba4d5a3155bcd9d606d">getPort</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keyword">public</span>:</div>
@@ -172,11 +231,14 @@ $(document).ready(function(){initNavTree('_inet_address_8h_source.html','');});
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_bsd_sockets_1_1_address.html#ad719836c480f4805d4a21f1af4d38c0e">Address::Ptr</a> <a class="code" href="class_bsd_sockets_1_1_inet_address.html#ac16ff99d5d718763a388246be1ab406a">create</a>(std::shared_ptr&lt;LowLevelAddress&gt; lowLevelAddress) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_bsd_sockets_1_1_low_level_address.html" title="Interface for the low-level address implementation.">LowLevelAddress</a>&amp; <a class="code" href="class_bsd_sockets_1_1_inet_address.html#a88bdae94ec5bc2b111a4d915a3795cff">getLowLevelAddress</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">    /** The serviceName used to create this Address */</span></div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">const</span> std::string serviceName;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">    /** The string address used to create this */</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">const</span> std::string requestedAddress;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">    /** The private implementation of this InetAddress */</span></div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    std::shared_ptr&lt;InetAddressPimpl&gt; <span class="keyword">const</span> pimpl;</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  };</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
@@ -190,7 +252,7 @@ $(document).ready(function(){initNavTree('_inet_address_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="_inet_address_8h.html">InetAddress.h</a></li>
-    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 23:42:30 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -134,18 +134,43 @@ $(document).ready(function(){initNavTree('_client_socket_8h_source.html','');});
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">   * Forward Declarations</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">class </span>Address;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">  /** \class ClientSocket</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">   * </span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">   * \brief Client Socket providing ability to connect to and Address.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">   * This adds to Socket the ability to connetc() to an address.</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_client_socket.html">   35</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_bsd_sockets_1_1_client_socket.html" title="Client Socket providing ability to connect to and Address.">ClientSocket</a> : <span class="keyword">public</span> <a class="code" href="class_bsd_sockets_1_1_socket.html" title="BSD Socket base class providing the basic, common functionality between ServerSockets and ClientSocke...">Socket</a> {</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_client_socket.html#af595ea763ac6a8c951288b3c5c7a0120">   37</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;ClientSocket&gt; <a class="code" href="class_bsd_sockets_1_1_client_socket.html#af595ea763ac6a8c951288b3c5c7a0120">Ptr</a>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">    /** Closes socket.  Virtual destructor to support derived classes. */</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_bsd_sockets_1_1_client_socket.html#a26e890cef2313d54d2d6596230a2872d">~ClientSocket</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">    /** Create a ClientSocket to theAddress.</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">     * \note The caller still needs to connect()</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">     * @param theAddress to open and connect the ClientSocket to</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">     * @return the ClientSocket</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_bsd_sockets_1_1_client_socket.html#af595ea763ac6a8c951288b3c5c7a0120">ClientSocket::Ptr</a> <a class="code" href="class_bsd_sockets_1_1_client_socket.html#ac4bbebfafb76842fe9286d8da8e3b922">create</a>(std::shared_ptr&lt;Address&gt; theAddress);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">    /** Create and connect a ClientSocket to theAddress.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">     * @param theAddress to open the ClientSocket to</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">     * @return the ClientSocket</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_bsd_sockets_1_1_client_socket.html#af595ea763ac6a8c951288b3c5c7a0120">ClientSocket::Ptr</a> <a class="code" href="class_bsd_sockets_1_1_client_socket.html#a7215807055a04d876b928fe2bf198a33">open</a>(std::shared_ptr&lt;Address&gt; theAddress);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">protected</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">    /** Create ClientSocket to support an address, saving it for connect().</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">     * @param theAddress to create socket to use</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="class_bsd_sockets_1_1_client_socket.html#a24a2456568f6a675df02c6ffc22f0edd">ClientSocket</a>(std::shared_ptr&lt;Address&gt; theAddress);</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">private</span>:</div>
@@ -154,7 +179,8 @@ $(document).ready(function(){initNavTree('_client_socket_8h_source.html','');});
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="class_bsd_sockets_1_1_client_socket.html" title="Client Socket providing ability to connect to and Address.">ClientSocket</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="class_bsd_sockets_1_1_socket.html" title="BSD Socket base class providing the basic, common functionality between ServerSockets and ClientSocke...">Socket</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="class_bsd_sockets_1_1_client_socket.html" title="Client Socket providing ability to connect to and Address.">ClientSocket</a>&amp; operator=(<a class="code" href="class_bsd_sockets_1_1_socket.html" title="BSD Socket base class providing the basic, common functionality between ServerSockets and ClientSocke...">Socket</a>&amp;&amp; rhs) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">    /** Connect ClientSocket to the address. */</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_bsd_sockets_1_1_client_socket.html#a3eb1948431594c2a837cade572ddd7be">connect</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  };</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
@@ -167,7 +193,7 @@ $(document).ready(function(){initNavTree('_client_socket_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="_client_socket_8h.html">ClientSocket.h</a></li>
-    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 23:42:30 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

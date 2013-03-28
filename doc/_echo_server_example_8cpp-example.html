@@ -129,9 +129,15 @@ $(document).ready(function(){initNavTree('_echo_server_example_8cpp-example.html
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="_server_socket_8h.html">ServerSocket.h</a>&quot;</span></div>
 <div class="line"></div>
 <div class="line"><span class="keyword">using namespace </span>BsdSockets;</div>
-<div class="line"></div>
+<div class="line"><span class="comment"></span></div>
+<div class="line"><span class="comment">/** Echo everything on socket until a line starting with &quot;quit&quot; */</span></div>
 <div class="line"><span class="keyword">class </span>EchoHandler {</div>
-<div class="line"><span class="keyword">public</span>:</div>
+<div class="line"><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Create with theSocket to echo on and greeting string</span></div>
+<div class="line"><span class="comment">   *</span></div>
+<div class="line"><span class="comment">   * @param theSocket to echo on</span></div>
+<div class="line"><span class="comment">   * @param greeting to echo at the beginning</span></div>
+<div class="line"><span class="comment">   */</span></div>
 <div class="line">  EchoHandler(<a class="code" href="class_bsd_sockets_1_1_socket.html#a529188c256c6ce22b6609b9249c9a5e5">Socket::Ptr</a> theSocket, <span class="keyword">const</span> std::string&amp; greeting)</div>
 <div class="line">    : socket(theSocket)</div>
 <div class="line">  {</div>
@@ -142,7 +148,8 @@ $(document).ready(function(){initNavTree('_echo_server_example_8cpp-example.html
 <div class="line">      <span class="comment">// Do nothing on error</span></div>
 <div class="line">    }</div>
 <div class="line">  }</div>
-<div class="line"></div>
+<div class="line"><span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Run the echo without escaping any exceptions */</span></div>
 <div class="line">  <span class="keywordtype">void</span> operator() () {</div>
 <div class="line">    <span class="keywordflow">try</span> {</div>
 <div class="line">      <span class="keywordflow">while</span>(<span class="keyword">true</span>) {</div>
@@ -155,7 +162,11 @@ $(document).ready(function(){initNavTree('_echo_server_example_8cpp-example.html
 <div class="line">    }</div>
 <div class="line">  }</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">private</span>:</div>
+<div class="line"><span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Read the next data, when ready, and deal with</span></div>
+<div class="line"><span class="comment">   *</span></div>
+<div class="line"><span class="comment">   * @return true if we are done, otherwise false to continue</span></div>
+<div class="line"><span class="comment">   */</span></div>
 <div class="line">  <span class="keywordtype">bool</span> readCurrent() {</div>
 <div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> bufferLen = 1024;</div>
 <div class="line">    <span class="keywordtype">char</span> buffer[bufferLen];</div>
@@ -167,7 +178,13 @@ $(document).ready(function(){initNavTree('_echo_server_example_8cpp-example.html
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">return</span> actOn(std::string(buffer, readLength));</div>
 <div class="line">  }</div>
-<div class="line"></div>
+<div class="line"><span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Act on the buffer</span></div>
+<div class="line"><span class="comment">   *</span></div>
+<div class="line"><span class="comment">   * @param buffer to process</span></div>
+<div class="line"><span class="comment">   *</span></div>
+<div class="line"><span class="comment">   * @return true if we are done, otherwise false to continue</span></div>
+<div class="line"><span class="comment">   */</span></div>
 <div class="line">  <span class="keywordtype">bool</span> actOn(<span class="keyword">const</span> std::string&amp; buffer) {</div>
 <div class="line">    <span class="keywordflow">if</span>(0 == buffer.find(<span class="stringliteral">&quot;quit&quot;</span>)) {</div>
 <div class="line">      send(<span class="stringliteral">&quot;Goodbye!\n&quot;</span>);</div>
@@ -177,24 +194,37 @@ $(document).ready(function(){initNavTree('_echo_server_example_8cpp-example.html
 <div class="line">    send(buffer);</div>
 <div class="line">    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line">  }</div>
-<div class="line"></div>
+<div class="line"><span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Send a string message over the socket</span></div>
+<div class="line"><span class="comment">   *</span></div>
+<div class="line"><span class="comment">   * @param message to send</span></div>
+<div class="line"><span class="comment">   */</span></div>
 <div class="line">  <span class="keywordtype">void</span> send(<span class="keyword">const</span> std::string&amp; message) {</div>
 <div class="line">    socket-&gt;send(message.c_str(), message.length() + 1);</div>
 <div class="line">  }</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">private</span>:</div>
+<div class="line"><span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Timeout for this socket */</span></div>
 <div class="line">  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> timeout_ms = 500;</div>
-<div class="line"></div>
+<div class="line"><span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Socket to echo */</span></div>
 <div class="line">  <a class="code" href="class_bsd_sockets_1_1_socket.html#a529188c256c6ce22b6609b9249c9a5e5">Socket::Ptr</a> socket;</div>
 <div class="line">};</div>
-<div class="line"></div>
+<div class="line"><span class="comment"></span></div>
+<div class="line"><span class="comment">/** Opens a ServerSocket to accept connections to echo everything back on.</span></div>
+<div class="line"><span class="comment"> */</span></div>
 <div class="line"><span class="keyword">class </span>EchoServer {</div>
-<div class="line"><span class="keyword">public</span>:</div>
+<div class="line"><span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Create bound to address</span></div>
+<div class="line"><span class="comment">   *</span></div>
+<div class="line"><span class="comment">   * @param address to open EchoServer</span></div>
+<div class="line"><span class="comment">   */</span></div>
 <div class="line">  EchoServer(<a class="code" href="class_bsd_sockets_1_1_address.html#ad719836c480f4805d4a21f1af4d38c0e">Address::Ptr</a> address)</div>
 <div class="line">    : serverSocket(<a name="_a0"></a><a class="code" href="class_bsd_sockets_1_1_server_socket.html" title="Server Socket providing ability to bind, listen and accept connections.">ServerSocket</a>::open(address))</div>
 <div class="line">  {</div>
 <div class="line">  }</div>
-<div class="line"></div>
+<div class="line"><span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Run the echo without escaping any exceptions */</span></div>
 <div class="line">  <span class="keywordtype">void</span> operator()() {</div>
 <div class="line">    <span class="keywordflow">try</span> {</div>
 <div class="line">      <span class="comment">// Loop over all incoming</span></div>
@@ -217,7 +247,8 @@ $(document).ready(function(){initNavTree('_echo_server_example_8cpp-example.html
 <div class="line">    }</div>
 <div class="line">  }</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">private</span>:</div>
+<div class="line"><span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Accept the next socket and spin off an EchoHandler */</span></div>
 <div class="line">  <span class="keywordtype">void</span> acceptCurrent() {</div>
 <div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span> = acceptedThreads.size() + 1;</div>
 <div class="line">    acceptedThreads.push_back(serverSocket-&gt;acceptInNewThread(</div>
@@ -228,11 +259,14 @@ $(document).ready(function(){initNavTree('_echo_server_example_8cpp-example.html
 <div class="line">      }));</div>
 <div class="line">  }</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">private</span>:</div>
+<div class="line"><span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Timeout for this socket */</span></div>
 <div class="line">  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> timeout_ms = 500;</div>
-<div class="line"></div>
+<div class="line"><span class="comment"></span></div>
+<div class="line"><span class="comment">  /** Socket we accept connections on */</span></div>
 <div class="line">  <a class="code" href="class_bsd_sockets_1_1_server_socket.html#ae258b0434e5bd7a351a4bda595749d5f">ServerSocket::Ptr</a> serverSocket;</div>
-<div class="line"></div>
+<div class="line"><span class="comment"></span></div>
+<div class="line"><span class="comment">  /** All threads we have created so that we could join them, if appropriate */</span></div>
 <div class="line">  std::vector&lt;std::thread&gt; acceptedThreads;</div>
 <div class="line">};</div>
 <div class="line"></div>
@@ -258,7 +292,7 @@ $(document).ready(function(){initNavTree('_echo_server_example_8cpp-example.html
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 23:42:30 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

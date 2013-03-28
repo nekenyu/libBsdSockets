@@ -123,34 +123,57 @@ $(document).ready(function(){initNavTree('_address_info_8h_source.html','');});
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef ADDRESS_INFO_H</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define ADDRESS_INFO_H</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span><span class="comment"></span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/**</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"> * BSD Sockets Package.</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>BsdSockets {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629">   27</a></span>&#160;  <span class="keyword">enum class</span> <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629">SocketDomain</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">  /** The low-level domain of a socket or address.</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">   * This provides detail to the low-level implementation.</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629">   27</a></span>&#160;  <span class="keyword">enum class</span> <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629">SocketDomain</a> {<span class="comment"></span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">    /** Traditional internet address for TCP, UDP, etc. */</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629a026226c3cf0400ffbf1ef901c0709aea">INET4</a>,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">      /** IPv6 internet address TCP, UDP, etc. */</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629a3a1be585a9d1d7af08b562f200a982bb">INET6</a>,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">      /** Local/Unix/Pipe socket address */</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629a54b4c4075463b2e02cd69f5cd139b5b2">LOCAL</a>,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">      /** Internal Routing Protocol */</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629ab27f430ed948df9b2bf126b3122d7175">ROUTE</a>,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">      /** Internal Key Management */</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629a3b5949e0c26b87767a4752a276de9570">KEY</a>,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">      /** Kernel Event Messages */</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629afa177138f94a7ea01f549b1aa7893d03">SYSTEM</a>,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">      /** Raw Protocol Interface */</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629a633d6abff0a3fc22404347728d195059">RAW</a></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      };</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67e">   54</a></span>&#160;  <span class="keyword">enum class</span> <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67e">SocketType</a> {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">  /** The low-level type of the socket.</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">   * This provides detail to the low-level implementation.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">   */</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67e">   54</a></span>&#160;  <span class="keyword">enum class</span> <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67e">SocketType</a> {<span class="comment"></span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">    /** Stream of messages */</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67ea2f05998d2a71cdc19b7109549bbe2646">STREAM</a>,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="comment"></span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">      /** Datagram socket */</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67ea77531d7905cb7b4e343ca868f98312f3">DATAGRAM</a>,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">      /** Raw protocol interface */</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67eacf75ccda79552dbe0481f9977a74d671">RAW_PROTOCOL</a>,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">      /** Reliably-delivered message */</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67ea0f3b46bacc146af6ef41384178105ebc">RELIABLY_DELIVERED</a>,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">      /** Sequenced packet stream */</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67eacd89763514b69dee8127fc9d61e7cddd">SEQUENCED_PACKET</a></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      };</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
@@ -163,7 +186,7 @@ $(document).ready(function(){initNavTree('_address_info_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="_address_info_8h.html">AddressInfo.h</a></li>
-    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 23:42:30 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

@@ -134,16 +134,34 @@ $(document).ready(function(){initNavTree('_address_8h_source.html','');});
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">   * Forward Declarations</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">class </span>LowLevelAddress;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="comment"></span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">  /** \class Address</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">   * \brief Base class for all addresses.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">   * Provides common information for all types of addresses and a pure-virtual</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">   * method to access the LowLevelAddress.</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_address.html">   36</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_bsd_sockets_1_1_address.html" title="Base class for all addresses.">Address</a> {</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00038"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_address.html#ad719836c480f4805d4a21f1af4d38c0e">   38</a></span>&#160;    <span class="keyword">typedef</span> std::shared_ptr&lt;Address&gt; <a class="code" href="class_bsd_sockets_1_1_address.html#ad719836c480f4805d4a21f1af4d38c0e">Ptr</a>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">    /** Virtual destructor to support derived classes */</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_bsd_sockets_1_1_address.html#a5cb5acab268b56fd9ddd31b60793edff">~Address</a>();</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">protected</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">    /** Create from parameters</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">     * @param theSocketDomain the SocketDomain for the Address</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">     * @param theSocketType the SocketType for the Address</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">     * @param theProtocol the low-level protocol for the address</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="class_bsd_sockets_1_1_address.html#afa3e49b6ece614e787d8162cfab22ceb">Address</a>(<a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629">SocketDomain</a> theSocketDomain, <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67e">SocketType</a> theSocketType, <span class="keywordtype">int</span> theProtocol);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">    /** Copy from another Address</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">     * @param rhs the Address to copy</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="class_bsd_sockets_1_1_address.html#afa3e49b6ece614e787d8162cfab22ceb">Address</a>(<span class="keyword">const</span> <a class="code" href="class_bsd_sockets_1_1_address.html" title="Base class for all addresses.">Address</a>&amp; rhs);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keyword">private</span>:</div>
@@ -151,25 +169,39 @@ $(document).ready(function(){initNavTree('_address_8h_source.html','');});
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="class_bsd_sockets_1_1_address.html" title="Base class for all addresses.">Address</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="class_bsd_sockets_1_1_address.html" title="Base class for all addresses.">Address</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="class_bsd_sockets_1_1_address.html" title="Base class for all addresses.">Address</a>&amp; operator=(<a class="code" href="class_bsd_sockets_1_1_address.html" title="Base class for all addresses.">Address</a>&amp;&amp; rhs) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">    /** @return the SocketDomain of the Address */</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629">SocketDomain</a> <a class="code" href="class_bsd_sockets_1_1_address.html#a85650574454c4216c1a852a203b5e588">getSocketDomain</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">    /** @return the SocketType of the Address */</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67e">SocketType</a> <a class="code" href="class_bsd_sockets_1_1_address.html#aee1d7dafa1ffac89b414401cea722fea">getSocketType</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">    /** @return the low-level protocol of the Address */</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_bsd_sockets_1_1_address.html#ac4f0db3f633ee9cac5f02900da7c172f">getProtocol</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">    /** @return a LowLevelAddress suitable for create() */</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;LowLevelAddress&gt; <a class="code" href="class_bsd_sockets_1_1_address.html#a4f8cfd2fbf03b4fc3df0852c53212d0c">makeTempLowLevelAddress</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">    /** Create a new Address from a LowLevelAddress using this Address as a template.</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">     * @param lowLevelAddress data to create from</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">     * @return Address created</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_bsd_sockets_1_1_address.html#ad719836c480f4805d4a21f1af4d38c0e">Address::Ptr</a> <a class="code" href="class_bsd_sockets_1_1_address.html#aa3938a2303ef2407ab5332f50c254d9f">create</a>(std::shared_ptr&lt;LowLevelAddress&gt; lowLevelAddress) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="comment"></span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">    /** Method for derived classes to provide access to the LowLevelAddress information */</span></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="class_bsd_sockets_1_1_low_level_address.html" title="Interface for the low-level address implementation.">LowLevelAddress</a>&amp; <a class="code" href="class_bsd_sockets_1_1_address.html#aee997232d3400ca50bb917f023c3219a">getLowLevelAddress</a>() <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keyword">private</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">    /** The SocketDomain of the Address */</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespace_bsd_sockets.html#a64a5a90475ffd790436e673e63a4f629">SocketDomain</a> socketDomain;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment"></span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">    /** The SocketType of the Address */</span></div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67e">SocketType</a> socketType;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">    /** The low-level protocol of the Address */</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> protocol;</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  };</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
@@ -182,7 +214,7 @@ $(document).ready(function(){initNavTree('_address_8h_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="_address_8h.html">Address.h</a></li>
-    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 23:42:30 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

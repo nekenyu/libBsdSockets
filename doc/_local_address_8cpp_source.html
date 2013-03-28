@@ -135,9 +135,18 @@ $(document).ready(function(){initNavTree('_local_address_8cpp_source.html','');}
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">namespace </span>BsdSockets {</div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="code" href="namespace_bsd_sockets.html#a133c5a208ddf17c82ae820729a86c082">   28</a></span>&#160;  <span class="keyword">typedef</span> <a class="code" href="class_bsd_sockets_1_1_low_level_address_type.html" title="LowLevelAddress template for the various cast-to-sockaddr implementaitons.">LowLevelAddressType&lt;struct sockaddr_un&gt;</a> <a class="code" href="namespace_bsd_sockets.html#a133c5a208ddf17c82ae820729a86c082">LocalLowLevelAddress</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">  /** \brief The private implementation of LocalAddress.</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">   *</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">   * This provides the LowLevelAddress.</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_local_address_pimpl.html">   34</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_bsd_sockets_1_1_local_address_pimpl.html" title="The private implementation of LocalAddress.">LocalAddressPimpl</a> : <span class="keyword">public</span> <a class="code" href="class_bsd_sockets_1_1_low_level_address_type.html" title="LowLevelAddress template for the various cast-to-sockaddr implementaitons.">LocalLowLevelAddress</a> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">public</span>:<span class="comment"></span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">    /** Create by encoding thePath</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">     *</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">     * @param thePath to encode</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">     * @param allowBlank true if blank is allowed, which is really only from accept()</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">     */</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_local_address_pimpl.html#a35e18f5b30499085cad6ad04e7f56423">   41</a></span>&#160;    <a class="code" href="class_bsd_sockets_1_1_local_address_pimpl.html" title="The private implementation of LocalAddress.">LocalAddressPimpl</a>(<span class="keyword">const</span> std::string&amp; thePath, <span class="keywordtype">bool</span> allowBlank)</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    {</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordflow">if</span>(!allowBlank &amp;&amp; 0 == thePath.size()) {</div>
@@ -210,7 +219,7 @@ $(document).ready(function(){initNavTree('_local_address_8cpp_source.html','');}
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="_local_address_8cpp.html">LocalAddress.cpp</a></li>
-    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 23:42:30 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>
