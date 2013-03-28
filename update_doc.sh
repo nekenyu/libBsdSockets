@@ -66,6 +66,6 @@ rsync -rlptzq --delete ${SRC} ${DEST}
 # Update git
 #
 #
-echo Updating ${DEST} with 'git add -u':
+echo Updating ${DEST} with 'git add -A':
 
-git add -u doc/
+git add -A doc/

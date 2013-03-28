@@ -10,6 +10,7 @@ var hierarchy =
         [ "BsdSockets::LocalAddressPimpl", "class_bsd_sockets_1_1_local_address_pimpl.html", null ]
       ] ]
     ] ],
+    [ "BsdSockets::SelectResult", "class_bsd_sockets_1_1_select_result.html", null ],
     [ "BsdSockets::Socket", "class_bsd_sockets_1_1_socket.html", [
       [ "BsdSockets::ClientSocket", "class_bsd_sockets_1_1_client_socket.html", null ],
       [ "BsdSockets::ServerSocket", "class_bsd_sockets_1_1_server_socket.html", null ]

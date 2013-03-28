@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('_local_address_examples_8cpp-example.h
 <div class="title">LocalAddressExamples.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<p>Examples of using a LocalAddress</p>
+<p>Examples of using a LocalAddress.</p>
 <div class="fragment"><div class="line"><span class="comment">/*</span></div>
 <div class="line"><span class="comment"></span></div>
 <div class="line"><span class="comment">Copyright (c) 2013, Komodo Does Inc</span></div>
@@ -124,7 +124,7 @@ $(document).ready(function(){initNavTree('_local_address_examples_8cpp-example.h
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="_local_address_8h.html">LocalAddress.h</a>&quot;</span></div>
 <div class="line"><span class="keyword">using namespace </span>BsdSockets;</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> localAddressExamples() {</div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv) {</div>
 <div class="line">  <span class="comment">// Empty Address is invalid</span></div>
 <div class="line">  <span class="keywordflow">try</span> {</div>
 <div class="line">    <a class="code" href="class_bsd_sockets_1_1_local_address.html#a50a541684f8ef8d191601b695a484911">LocalAddress::Ptr</a> invalid = <a name="a0"></a><a class="code" href="class_bsd_sockets_1_1_local_address.html#a7c61f9bbcbaca1f6f5a8a979d16cc49e">LocalAddress::create</a>(<span class="stringliteral">&quot;&quot;</span>);</div>
@@ -139,13 +139,15 @@ $(document).ready(function(){initNavTree('_local_address_examples_8cpp-example.h
 <div class="line"></div>
 <div class="line">  <span class="comment">// Valid address</span></div>
 <div class="line">  <a class="code" href="class_bsd_sockets_1_1_local_address.html#a50a541684f8ef8d191601b695a484911">LocalAddress::Ptr</a> valid = <a class="code" href="class_bsd_sockets_1_1_local_address.html#a7c61f9bbcbaca1f6f5a8a979d16cc49e">LocalAddress::create</a>(<span class="stringliteral">&quot;./my-socket&quot;</span>);</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Mar 25 2013 20:03:40 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

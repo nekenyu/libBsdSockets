@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('_inet_address_examples_8cpp-example.ht
 <div class="line"></div>
 <div class="line"><span class="keyword">using namespace </span>std;</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> inetAddressExamples() {</div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv) {</div>
 <div class="line">  <span class="comment">// Invalid service</span></div>
 <div class="line">  <span class="keywordflow">try</span> {</div>
 <div class="line">    <a class="code" href="class_bsd_sockets_1_1_inet_address.html#a6e383429fa2fb2baf2e6a149a4335cd1">InetAddress::Ptr</a> invalid = <a name="a0"></a><a class="code" href="class_bsd_sockets_1_1_inet_address.html#ac16ff99d5d718763a388246be1ab406a">InetAddress::create</a>(SocketType::STREAM, <span class="stringliteral">&quot;9999999999&quot;</span>);</div>
@@ -154,15 +154,15 @@ $(document).ready(function(){initNavTree('_inet_address_examples_8cpp-example.ht
 <div class="line">  <span class="comment">// Collecting all matching addresses, such as the multiple IPs behind google.com</span></div>
 <div class="line">  std::vector&lt;InetAddress::Ptr&gt; google;</div>
 <div class="line">  <a class="code" href="class_bsd_sockets_1_1_inet_address.html#ac16ff99d5d718763a388246be1ab406a">InetAddress::create</a>(SocketType::STREAM, <span class="stringliteral">&quot;http&quot;</span>, <span class="stringliteral">&quot;google.com&quot;</span>, google);</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="line"></div>
-<div class="line"></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Mar 25 2013 20:03:40 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

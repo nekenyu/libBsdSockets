@@ -22,6 +22,7 @@ var dir_d44c64559bbebec7f509842c48db8b23 =
       [ "ServerSocket", "class_bsd_sockets_1_1_server_socket.html", "class_bsd_sockets_1_1_server_socket" ]
     ] ],
     [ "Socket.h", "_socket_8h.html", [
+      [ "SelectResult", "class_bsd_sockets_1_1_select_result.html", "class_bsd_sockets_1_1_select_result" ],
       [ "Socket", "class_bsd_sockets_1_1_socket.html", "class_bsd_sockets_1_1_socket" ]
     ] ]
 ];

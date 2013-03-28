@@ -167,26 +167,26 @@ $(document).ready(function(){initNavTree('_socket_8cpp_source.html','');});
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#a8a0818104c1c5c23a2b87518fa7b046c">   61</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_bsd_sockets_1_1_socket.html#a8a0818104c1c5c23a2b87518fa7b046c">Socket::select</a>(<span class="keywordtype">int</span> timeout_ms, <span class="keywordtype">bool</span>&amp; readyToRead, <span class="keywordtype">bool</span>&amp; readyToWrite, <span class="keywordtype">bool</span>&amp; readyWithError) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#af04b225d0185d0d32365557e9af34805">   61</a></span>&#160;  <a class="code" href="class_bsd_sockets_1_1_select_result.html" title="Result of Socket::select() indicating the result status.">SelectResult</a> <a class="code" href="class_bsd_sockets_1_1_socket.html#af04b225d0185d0d32365557e9af34805">Socket::select</a>(<span class="keywordtype">int</span> timeout_ms, <span class="keywordtype">bool</span> checkRead, <span class="keywordtype">bool</span> checkWrite, <span class="keywordtype">bool</span> checkError) {</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">struct </span>timeval timeout;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">if</span>(0 != timeout_ms) {</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      timeout.tv_sec = timeout_ms / 1000;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      timeout.tv_usec = 1000 * (timeout_ms % 1000);</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    fd_set read;  FD_ZERO(&amp;read);  FD_SET(lowLevelSocket, &amp;read);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    fd_set write; FD_ZERO(&amp;write); FD_SET(lowLevelSocket, &amp;write);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    fd_set error; FD_ZERO(&amp;error); FD_SET(lowLevelSocket, &amp;error);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> result = <a class="code" href="class_bsd_sockets_1_1_socket.html#a8a0818104c1c5c23a2b87518fa7b046c">::select</a>(lowLevelSocket + 1, &amp;read, &amp;write, &amp;error, 0 == timeout_ms ? <span class="keyword">nullptr</span> : &amp;timeout);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    fd_set read;  FD_ZERO(&amp;read);  <span class="keywordflow">if</span>(checkRead) { FD_SET(lowLevelSocket, &amp;read); }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    fd_set write; FD_ZERO(&amp;write); <span class="keywordflow">if</span>(checkWrite) { FD_SET(lowLevelSocket, &amp;write); }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    fd_set error; FD_ZERO(&amp;error); <span class="keywordflow">if</span>(checkError) { FD_SET(lowLevelSocket, &amp;error); }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> result = <a class="code" href="class_bsd_sockets_1_1_socket.html#af04b225d0185d0d32365557e9af34805">::select</a>(lowLevelSocket + 1, &amp;read, &amp;write, &amp;error, 0 == timeout_ms ? <span class="keyword">nullptr</span> : &amp;timeout);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">if</span>(-1 == result) {</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      <span class="keywordflow">throw</span> std::system_error(errno, std::system_category());</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    readyToRead = FD_ISSET(lowLevelSocket, &amp;read);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    readyToWrite = FD_ISSET(lowLevelSocket, &amp;write);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    readyWithError = FD_ISSET(lowLevelSocket, &amp;error);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> readyToRead = FD_ISSET(lowLevelSocket, &amp;read);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> readyToWrite = FD_ISSET(lowLevelSocket, &amp;write);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> readyWithError = FD_ISSET(lowLevelSocket, &amp;error);</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> readyToRead || readyToWrite || readyWithError;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_bsd_sockets_1_1_select_result.html" title="Result of Socket::select() indicating the result status.">SelectResult</a>(checkRead, checkWrite, checkError, readyToRead, readyToWrite, readyWithError);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
 <div class="line"><a name="l00083"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#a37c0f0cebabefe12b9c60f3dcb185f79">   83</a></span>&#160;  <span class="keywordtype">short</span> <a class="code" href="class_bsd_sockets_1_1_socket.html#a37c0f0cebabefe12b9c60f3dcb185f79">Socket::poll</a>(<span class="keywordtype">int</span> timeout_ms, <span class="keywordtype">short</span> eventsToLookFor) {</div>
@@ -220,34 +220,43 @@ $(document).ready(function(){initNavTree('_socket_8cpp_source.html','');});
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">throw</span> std::system_error(errno, std::system_category());</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  }</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#a5f46bafeb0efc6083a9e20cfe8e864c7">  114</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_bsd_sockets_1_1_socket.html#a5f46bafeb0efc6083a9e20cfe8e864c7">Socket::getSocketOption</a>(<span class="keywordtype">int</span> level, <span class="keywordtype">int</span> optionName, <span class="keywordtype">void</span>* optionValue, socklen_t* optionLength)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">if</span>(-1 == ::getsockopt(lowLevelSocket, level, optionName, optionValue, optionLength)) {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keywordflow">throw</span> std::system_error(errno, std::system_category());</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  }</div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#a6cf5d52a1a5067d63d68e6100ec6d0de">  114</a></span>&#160;  ssize_t <a class="code" href="class_bsd_sockets_1_1_socket.html#a6cf5d52a1a5067d63d68e6100ec6d0de">Socket::blockingReceive</a>(<span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> length)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">const</span> ssize_t result = ::read(lowLevelSocket, buffer, length);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">if</span>(-1 != result) {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#adfe67a4fef756bcdf80493827a6e6e7e">  120</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_bsd_sockets_1_1_socket.html#adfe67a4fef756bcdf80493827a6e6e7e">Socket::setSocketOption</a>(<span class="keywordtype">int</span> level, <span class="keywordtype">int</span> optionName, <span class="keyword">const</span> <span class="keywordtype">void</span>* optionValue, socklen_t optionLength)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span>(-1 == ::setsockopt(lowLevelSocket, level, optionName, optionValue, optionLength)) {</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keywordflow">throw</span> std::system_error(errno, std::system_category());</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#ab25814266aedd7c4c03f33d079eb7e93">  126</a></span>&#160;  std::shared_ptr&lt;Address&gt; <a class="code" href="class_bsd_sockets_1_1_socket.html#ab25814266aedd7c4c03f33d079eb7e93">Socket::getAddress</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">return</span> address;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
-<div class="line"><a name="l00130"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#a2b368a1f88004b78e38ba58496637c42">  130</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="class_bsd_sockets_1_1_socket.html#a2b368a1f88004b78e38ba58496637c42">Socket::getLowLevelSocket</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">return</span> lowLevelSocket;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;} <span class="comment">// namespace BsdSockets</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">throw</span> std::system_error(errno, std::system_category());</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#a5f46bafeb0efc6083a9e20cfe8e864c7">  123</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_bsd_sockets_1_1_socket.html#a5f46bafeb0efc6083a9e20cfe8e864c7">Socket::getSocketOption</a>(<span class="keywordtype">int</span> level, <span class="keywordtype">int</span> optionName, <span class="keywordtype">void</span>* optionValue, socklen_t* optionLength)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">if</span>(-1 == ::getsockopt(lowLevelSocket, level, optionName, optionValue, optionLength)) {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      <span class="keywordflow">throw</span> std::system_error(errno, std::system_category());</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#adfe67a4fef756bcdf80493827a6e6e7e">  129</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_bsd_sockets_1_1_socket.html#adfe67a4fef756bcdf80493827a6e6e7e">Socket::setSocketOption</a>(<span class="keywordtype">int</span> level, <span class="keywordtype">int</span> optionName, <span class="keyword">const</span> <span class="keywordtype">void</span>* optionValue, socklen_t optionLength)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">if</span>(-1 == ::setsockopt(lowLevelSocket, level, optionName, optionValue, optionLength)) {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;      <span class="keywordflow">throw</span> std::system_error(errno, std::system_category());</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#ab25814266aedd7c4c03f33d079eb7e93">  135</a></span>&#160;  std::shared_ptr&lt;Address&gt; <a class="code" href="class_bsd_sockets_1_1_socket.html#ab25814266aedd7c4c03f33d079eb7e93">Socket::getAddress</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">return</span> address;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="code" href="class_bsd_sockets_1_1_socket.html#a2b368a1f88004b78e38ba58496637c42">  139</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="class_bsd_sockets_1_1_socket.html#a2b368a1f88004b78e38ba58496637c42">Socket::getLowLevelSocket</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">return</span> lowLevelSocket;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;} <span class="comment">// namespace BsdSockets</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="_socket_8cpp.html">Socket.cpp</a></li>
-    <li class="footer">Generated on Mon Mar 25 2013 20:03:40 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

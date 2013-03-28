@@ -9,5 +9,6 @@ var namespace_bsd_sockets =
     [ "LowLevelAddress", "class_bsd_sockets_1_1_low_level_address.html", "class_bsd_sockets_1_1_low_level_address" ],
     [ "LowLevelAddressType", "class_bsd_sockets_1_1_low_level_address_type.html", "class_bsd_sockets_1_1_low_level_address_type" ],
     [ "ServerSocket", "class_bsd_sockets_1_1_server_socket.html", "class_bsd_sockets_1_1_server_socket" ],
+    [ "SelectResult", "class_bsd_sockets_1_1_select_result.html", "class_bsd_sockets_1_1_select_result" ],
     [ "Socket", "class_bsd_sockets_1_1_socket.html", "class_bsd_sockets_1_1_socket" ]
 ];

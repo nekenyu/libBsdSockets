@@ -138,14 +138,16 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afc6486ac1c7b8f76af634388deb5d070"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_socket.html#afc6486ac1c7b8f76af634388deb5d070">~Socket</a> ()</td></tr>
 <tr class="separator:afc6486ac1c7b8f76af634388deb5d070"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a0818104c1c5c23a2b87518fa7b046c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_socket.html#a8a0818104c1c5c23a2b87518fa7b046c">select</a> (int timeout_ms, bool &amp;readyToRead, bool &amp;readyToWrite, bool &amp;readyWithError)</td></tr>
-<tr class="separator:a8a0818104c1c5c23a2b87518fa7b046c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af04b225d0185d0d32365557e9af34805"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bsd_sockets_1_1_select_result.html">SelectResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_socket.html#af04b225d0185d0d32365557e9af34805">select</a> (int timeout_ms, bool checkRead, bool checkWrite, bool checkError)</td></tr>
+<tr class="separator:af04b225d0185d0d32365557e9af34805"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37c0f0cebabefe12b9c60f3dcb185f79"><td class="memItemLeft" align="right" valign="top">short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_socket.html#a37c0f0cebabefe12b9c60f3dcb185f79">poll</a> (int timeout_ms, short eventsToLookFor)</td></tr>
 <tr class="separator:a37c0f0cebabefe12b9c60f3dcb185f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaedc07003b63de6f27fcd0980f850762"><td class="memItemLeft" align="right" valign="top">ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_socket.html#aaedc07003b63de6f27fcd0980f850762">send</a> (const void *buffer, size_t length, int flags=0) const </td></tr>
 <tr class="separator:aaedc07003b63de6f27fcd0980f850762"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a180ef6614145894bd3b50a5009841db4"><td class="memItemLeft" align="right" valign="top">ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_socket.html#a180ef6614145894bd3b50a5009841db4">receive</a> (void *buffer, size_t length, int flags=0) const </td></tr>
 <tr class="separator:a180ef6614145894bd3b50a5009841db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cf5d52a1a5067d63d68e6100ec6d0de"><td class="memItemLeft" align="right" valign="top">ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_socket.html#a6cf5d52a1a5067d63d68e6100ec6d0de">blockingReceive</a> (void *buffer, size_t length) const </td></tr>
+<tr class="separator:a6cf5d52a1a5067d63d68e6100ec6d0de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f46bafeb0efc6083a9e20cfe8e864c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_socket.html#a5f46bafeb0efc6083a9e20cfe8e864c7">getSocketOption</a> (int level, int optionName, void *optionValue, socklen_t *optionLength) const </td></tr>
 <tr class="separator:a5f46bafeb0efc6083a9e20cfe8e864c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfe67a4fef756bcdf80493827a6e6e7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_socket.html#adfe67a4fef756bcdf80493827a6e6e7e">setSocketOption</a> (int level, int optionName, const void *optionValue, socklen_t optionLength) const </td></tr>
@@ -170,7 +172,7 @@ Protected Member Functions</h2></td></tr>
 <p>It provides creation (on creation), closing (on destruct), send/receive, and socket option set/get.</p>
 <dl class="section note"><dt>Note</dt><dd>The socket is created during the constructor and closed in the destructor. The socket may not be closed prior. </dd></dl>
 
-<p>Definition at line <a class="el" href="_socket_8h_source.html#l00040">40</a> of file <a class="el" href="_socket_8h_source.html">Socket.h</a>.</p>
+<p>Definition at line <a class="el" href="_socket_8h_source.html#l00066">66</a> of file <a class="el" href="_socket_8h_source.html">Socket.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a class="anchor" id="a529188c256c6ce22b6609b9249c9a5e5"></a>
 <div class="memitem">
@@ -182,7 +184,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_socket_8h_source.html#l00042">42</a> of file <a class="el" href="_socket_8h_source.html">Socket.h</a>.</p>
+<p>Definition at line <a class="el" href="_socket_8h_source.html#l00068">68</a> of file <a class="el" href="_socket_8h_source.html">Socket.h</a>.</p>
 
 </div>
 </div>
@@ -247,6 +249,43 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a6cf5d52a1a5067d63d68e6100ec6d0de"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ssize_t BsdSockets::Socket::blockingReceive </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Read up to length bytes into buffer with flags from socket, blocking until ready or error..</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer</td><td>to write </td></tr>
+    <tr><td class="paramname">length</td><td>bytes to read from socket and write to buffer</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bytes read. 0 is a remote closed socket. </dd></dl>
+
+<p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00114">114</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a129f49a418774045d45410f1c9023e10"></a>
 <div class="memitem">
 <div class="memproto">
@@ -306,7 +345,7 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the address of this socket </dd></dl>
 
-<p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00126">126</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00135">135</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -324,7 +363,7 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the low-level socket number </dd></dl>
 
-<p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00130">130</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00139">139</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -374,7 +413,7 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00114">114</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00123">123</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -453,18 +492,19 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>bytes read</dd></dl>
 <dl class="section see"><dt>See Also</dt><dd>send() flags parameter for details of flags </dd></dl>
 
 <p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00105">105</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a8a0818104c1c5c23a2b87518fa7b046c"></a>
+<a class="anchor" id="af04b225d0185d0d32365557e9af34805"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool BsdSockets::Socket::select </td>
+          <td class="memname"><a class="el" href="class_bsd_sockets_1_1_select_result.html">SelectResult</a> BsdSockets::Socket::select </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>timeout_ms</em>, </td>
@@ -472,20 +512,20 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>readyToRead</em>, </td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>checkRead</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>readyToWrite</em>, </td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>checkWrite</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>readyWithError</em>&#160;</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>checkError</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -497,14 +537,14 @@ Protected Member Functions</h2></td></tr>
 <p>Check state of socket without timeout_ms</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">timeout_ms</td><td>timeout in milliseconds to stop trying to check </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">readyToRead</td><td>set true if ready to read, otherwise false </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">readyToWrite</td><td>set true if ready to write, otherwise false </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">readyWithError</td><td>set true if ready with error, otherwise false</td></tr>
+    <tr><td class="paramname">timeout_ms</td><td>timeout in milliseconds to stop trying to check </td></tr>
+    <tr><td class="paramname">checkRead</td><td>true if read should be checked </td></tr>
+    <tr><td class="paramname">checkWrite</td><td>true if write should be checked </td></tr>
+    <tr><td class="paramname">checkError</td><td>true if error should be checked</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool true if the socket is ready in any way, otherwise false </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_bsd_sockets_1_1_select_result.html" title="Result of Socket::select() indicating the result status.">SelectResult</a> containing results of select </dd></dl>
 
 <p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00061">61</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
 
@@ -601,7 +641,7 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00120">120</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_socket_8cpp_source.html#l00129">129</a> of file <a class="el" href="_socket_8cpp_source.html">Socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -615,7 +655,7 @@ Protected Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_bsd_sockets.html">BsdSockets</a></li><li class="navelem"><a class="el" href="class_bsd_sockets_1_1_socket.html">Socket</a></li>
-    <li class="footer">Generated on Mon Mar 25 2013 20:03:42 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

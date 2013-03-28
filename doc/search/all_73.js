@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['select',['select',['../class_bsd_sockets_1_1_socket.html#a8a0818104c1c5c23a2b87518fa7b046c',1,'BsdSockets::Socket']]],
+  ['select',['select',['../class_bsd_sockets_1_1_socket.html#af04b225d0185d0d32365557e9af34805',1,'BsdSockets::Socket']]],
+  ['selectresult',['SelectResult',['../class_bsd_sockets_1_1_select_result.html',1,'BsdSockets']]],
+  ['selectresult',['SelectResult',['../class_bsd_sockets_1_1_select_result.html#a393abc93e1817b5fc05df25a70795b7c',1,'BsdSockets::SelectResult']]],
   ['send',['send',['../class_bsd_sockets_1_1_socket.html#aaedc07003b63de6f27fcd0980f850762',1,'BsdSockets::Socket']]],
   ['sequenced_5fpacket',['SEQUENCED_PACKET',['../namespace_bsd_sockets.html#ace0857144fd9584b9778927f20a2a67eacd89763514b69dee8127fc9d61e7cddd',1,'BsdSockets']]],
   ['serversocket',['ServerSocket',['../class_bsd_sockets_1_1_server_socket.html',1,'BsdSockets']]],

@@ -102,8 +102,7 @@ $(document).ready(function(){initNavTree('_server_socket_examples_8cpp-example.h
 <div class="title">ServerSocketExamples.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<p>Example of using a Server Socket</p>
-<dl class="section note"><dt>Note</dt><dd>Datagram sockets may send/receive with the ServerSocket directly. Other Sockets use the accept() returned Sockets.</dd></dl>
+<p>Example of open a ServerSocket and accepting a connection.</p>
 <div class="fragment"><div class="line"><span class="comment">/*</span></div>
 <div class="line"><span class="comment"></span></div>
 <div class="line"><span class="comment">Copyright (c) 2013, Komodo Does Inc</span></div>
@@ -118,20 +117,19 @@ $(document).ready(function(){initNavTree('_server_socket_examples_8cpp-example.h
 <div class="line"><span class="comment"></span></div>
 <div class="line"><span class="comment">*/</span></div>
 <div class="line"></div>
-<div class="line"></div>
 <div class="line"><span class="preprocessor">#include &lt;sys/socket.h&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;thread&gt;</span></div>
 <div class="line"></div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="_inet_address_8h.html">InetAddress.h</a>&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="_server_socket_8h.html">ServerSocket.h</a>&quot;</span></div>
 <div class="line"></div>
 <div class="line"><span class="keyword">using namespace </span>BsdSockets;</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> serverSocketExamples() {</div>
-<div class="line"></div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv) {</div>
 <div class="line">  <a class="code" href="class_bsd_sockets_1_1_inet_address.html#a6e383429fa2fb2baf2e6a149a4335cd1">InetAddress::Ptr</a> addr = <a name="a0"></a><a class="code" href="class_bsd_sockets_1_1_inet_address.html#ac16ff99d5d718763a388246be1ab406a">InetAddress::create</a>(SocketType::STREAM, <span class="stringliteral">&quot;12345&quot;</span>, <span class="stringliteral">&quot;127.0.0.1&quot;</span>);</div>
 <div class="line">  <a class="code" href="class_bsd_sockets_1_1_server_socket.html#ae258b0434e5bd7a351a4bda595749d5f">ServerSocket::Ptr</a> server = <a name="a1"></a><a class="code" href="class_bsd_sockets_1_1_server_socket.html#a6c0fc13d3a2e46d393089ef72c748814">ServerSocket::create</a>(addr);</div>
 <div class="line">  server-&gt;bind();</div>
@@ -139,20 +137,19 @@ $(document).ready(function(){initNavTree('_server_socket_examples_8cpp-example.h
 <div class="line"></div>
 <div class="line">  <span class="comment">// ...</span></div>
 <div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> timeout_ms = 50;</div>
-<div class="line">  <span class="keywordtype">bool</span> readyToRead = <span class="keyword">false</span>;</div>
-<div class="line">  <span class="keywordtype">bool</span> readyToWrite = <span class="keyword">false</span>;</div>
-<div class="line">  <span class="keywordtype">bool</span> readyWithError =<span class="keyword">false</span>;</div>
-<div class="line">  server-&gt;select(timeout_ms, readyToRead, readyToWrite, readyWithError);</div>
-<div class="line">  <span class="keywordflow">if</span>(readyToRead) {</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a2"></a><a class="code" href="class_bsd_sockets_1_1_select_result.html" title="Result of Socket::select() indicating the result status.">SelectResult</a> result = server-&gt;select(timeout_ms, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line">  <span class="keywordflow">if</span>(result.<a name="a3"></a><a class="code" href="class_bsd_sockets_1_1_select_result.html#abf7b129528b24ac868279667c7edd7f9">readyToRead</a>) {</div>
 <div class="line">    <a class="code" href="class_bsd_sockets_1_1_socket.html#a529188c256c6ce22b6609b9249c9a5e5">Socket::Ptr</a> accepted = server-&gt;accept();</div>
 <div class="line">  }</div>
+<div class="line"></div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Mar 25 2013 20:03:40 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>

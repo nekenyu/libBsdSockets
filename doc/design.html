@@ -140,8 +140,9 @@ Ease Of Use</h2>
 <p>The library should be easy to use in the general case, should not inhibit the fringe cases, and should support threading.</p>
 <h2><a class="anchor" id="thread-safety"></a>
 Thread Safety</h2>
-<p>Presently, this objects created by this library may only be used in their own thread. Different threads may create different objects. For example, multiple threads may create their own ClientSocket; however, Sockets accepted from a ServerSocket must remain in the same thread as the Server Socket.</p>
-<p>Thread safety is to be addressed soon. The main issue is passing accepted sockets to a new thread to then use the Socket. It really isn't very useful to make each Socket thread-safe from multiple threads since responses usually have to be isolated before being acted on, anyway.</p>
+<p>Thes objects created by this library may only be used in the thread they were created in. Different threads may create different objects. For example, multiple threads may create their own ClientSocket.</p>
+<p>Sockets accepted from a ServerSocket must remain in the same thread as the ServerSocket. Sockets accepted into a new thread create a new C++11 thread with a function or function object to run.</p>
+<p>With the exception of accepting a thread into a new server, there are no built in threading facilities as they would most likely need to include logic and data from the users of the library. Accepting a socket into a new thread was a clear need. For portability, C++11 threads were chosen despite the fact that they may conflict with potential users.</p>
 <h2><a class="anchor" id="bleeding"></a>
 Bleeding</h2>
 <p>Bleeding is the exposure of the underlying implementation to the callers. This appears in several ways: conceptsdata typesconstantsheadersThe entire concept, of course, is a bleed. The objective is to present the concept in an easier to use form.</p>
@@ -173,7 +174,7 @@ Architecture</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Mar 25 2013 20:03:42 for libBsdSockets by
+    <li class="footer">Generated on Wed Mar 27 2013 22:17:27 for libBsdSockets by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.3.1 </li>
   </ul>
