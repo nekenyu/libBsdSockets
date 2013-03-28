@@ -16,7 +16,5 @@
 - Unspecified Address type
   + Add it
   + Replace hack in accept with returning the unspecified address type, which means a real factory
-- Address threading -- mainly an issue with passing off accepted socket across thread boundary
-- Timeout based blocking reads
 
 */

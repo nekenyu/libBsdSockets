@@ -1,3 +1,4 @@
-/** \namespace BsdSockets
+/**
+\namespace BsdSockets
 \brief Namespace of the BsdSockets library.
  */
