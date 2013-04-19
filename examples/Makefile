@@ -16,11 +16,11 @@ all: $(EXES)
 
 %.o: %.cpp
 	@$(MAKEDEPEND)
-	$(CPP) $(CPPFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -c $<
 
 %.exe: %.o $(LIB_BSD_SOCKET)
 	@$(MAKEDEPEND)
-	$(CPP) $(CPPFLAGS) -o $@ $^ $(LIB_BSD_SOCKET_INCL)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIB_BSD_SOCKET_INCL)
 
 -include $(DEPS)
 

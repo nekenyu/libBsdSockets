@@ -187,6 +187,8 @@ private:
     if(result.readyToRead) {
       acceptCurrent();
     }
+
+    return false;
   }
 
   /** Accept the next socket and spin off a CommandHandler */
@@ -221,8 +223,8 @@ int main(int argc, char** argv) {
   // This is superfluous for the example...
   std::thread serverThread(
   [=]() {
-      CommandServer server(addr);
-      server();
+    CommandServer server(addr);
+    server();
   });
 
   // Wait for server to return

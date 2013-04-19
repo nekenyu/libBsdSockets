@@ -16,7 +16,7 @@ DEPS= $(patsubst %.cpp,%.d,$(SRC))
 
 %.o: %.cpp
 	@$(MAKEDEPEND)
-	$(CPP) $(CPPFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -c $<
 
 -include $(DEPS)
 
@@ -30,4 +30,4 @@ cleanest: cleaner
 	rm -f $(TARGET)
 
 $(TARGET): $(OBJS) $(LIB_BSD_SOCKET)
-	$(CPP) $(CPPFLAGS) -o $@ $^ $(LIB_BSD_SOCKET_INCL) $(LIB_CPPUNIT_INCL)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIB_BSD_SOCKET_INCL) $(LIB_CPPUNIT_INCL)

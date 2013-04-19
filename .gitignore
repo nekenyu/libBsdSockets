@@ -7,3 +7,5 @@ doc_built
 *.d
 test/cppunitTest
 examples/*.exe
+\#*#
+.#*

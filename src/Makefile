@@ -16,7 +16,7 @@ DEPS= $(patsubst %.cpp,%.d,$(SRC))
 
 %.o: %.cpp
 	@$(MAKEDEPEND)
-	$(CPP) $(CPPFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -c $<
 
 -include $(DEPS)
 
