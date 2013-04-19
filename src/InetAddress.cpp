@@ -138,7 +138,7 @@ namespace BsdSockets {
 
     // Loop over all results and push into created
     // Note, if max > 0, we stop after creating max InetAddresses
-    int count = 0;
+    unsigned int count = 0;
     for(struct addrinfo* result = results; nullptr != result && (max <= 0 || count < max); result = result->ai_next, ++count) {
       // Parse the socket domain and actual address
       const SocketDomain socketDomain = lowLevelToSocketDomain(result->ai_family);
@@ -174,7 +174,8 @@ namespace BsdSockets {
 			   std::shared_ptr<InetAddressPimpl> pimpl
   )
     : Address(theSocketDomain, theSocketType, theProtocol),
-      requestedAddress(theRequestedAddress), serviceName(theServiceName),
+      serviceName(theServiceName),
+      requestedAddress(theRequestedAddress), 
       pimpl(pimpl)
   {
     if(nullptr == pimpl) {

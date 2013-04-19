@@ -149,21 +149,33 @@ public:
     char buffer[bufLen];
 
     // client -> accepted
-    CPPUNIT_ASSERT(msg1.length() == client->send(msg1.c_str(), msg1.length()));
+    {
+      const ssize_t sent = client->send(msg1.c_str(), msg1.length());
+      CPPUNIT_ASSERT(sent > 0 && msg1.length() == static_cast<size_t>(sent));
+    }
 
     if(readAccepted) {
       assertSelectOrPoll(accepted, doSelect, true, true, false, "Client sent");
     }
-    CPPUNIT_ASSERT(msg1.length() == accepted->receive(buffer, bufLen));
+    {
+      const ssize_t received = accepted->receive(buffer, bufLen);
+      CPPUNIT_ASSERT(received > 0 && msg1.length() == static_cast<size_t>(received));
+    }
     CPPUNIT_ASSERT(msg1 == buffer);
 
     // accepted -> client
-    CPPUNIT_ASSERT(msg1.length() == accepted->send(buffer, msg1.length()));
+    {
+      const ssize_t sent = accepted->send(buffer, msg1.length());
+      CPPUNIT_ASSERT(sent > 0 && msg1.length() == static_cast<size_t>(sent));
+    }
 
     if(readClient) {
       assertSelectOrPoll(client, doSelect, true, true, false, "Accepted sent");
     }
-    CPPUNIT_ASSERT(msg1.length() == client->receive(buffer, bufLen));
+    {
+      const size_t received = client->receive(buffer, bufLen);
+      CPPUNIT_ASSERT(received > 0 && msg1.length() == static_cast<size_t>(received));
+    }
     CPPUNIT_ASSERT(msg1 == buffer);
   }
 

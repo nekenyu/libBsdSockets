@@ -10,6 +10,8 @@ CXXFLAGS += -std=c++11
 
 INCLUDE= $(TOPDIR)/include
 CXXFLAGS += -I $(INCLUDE)
+CXXFLAGS += -Werror
+CXXFLAGS += -Wall
 
 ifdef DEBUG
       CXXFLAGS += -g

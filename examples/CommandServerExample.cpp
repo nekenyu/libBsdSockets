@@ -77,6 +77,8 @@ private:
     if(result.readyToRead) {
       return readCurrent();
     }
+
+    return false;
   }
 
   /** Read the next data, when ready and deal with it
