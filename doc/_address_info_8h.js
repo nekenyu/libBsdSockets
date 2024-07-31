@@ -5,9 +5,7 @@ var _address_info_8h =
       [ "INET6", "_address_info_8h.html#a64a5a90475ffd790436e673e63a4f629a3a1be585a9d1d7af08b562f200a982bb", null ],
       [ "LOCAL", "_address_info_8h.html#a64a5a90475ffd790436e673e63a4f629a54b4c4075463b2e02cd69f5cd139b5b2", null ],
       [ "ROUTE", "_address_info_8h.html#a64a5a90475ffd790436e673e63a4f629ab27f430ed948df9b2bf126b3122d7175", null ],
-      [ "KEY", "_address_info_8h.html#a64a5a90475ffd790436e673e63a4f629a3b5949e0c26b87767a4752a276de9570", null ],
-      [ "SYSTEM", "_address_info_8h.html#a64a5a90475ffd790436e673e63a4f629afa177138f94a7ea01f549b1aa7893d03", null ],
-      [ "RAW", "_address_info_8h.html#a64a5a90475ffd790436e673e63a4f629a633d6abff0a3fc22404347728d195059", null ]
+      [ "KEY", "_address_info_8h.html#a64a5a90475ffd790436e673e63a4f629a3b5949e0c26b87767a4752a276de9570", null ]
     ] ],
     [ "SocketType", "_address_info_8h.html#ace0857144fd9584b9778927f20a2a67e", [
       [ "STREAM", "_address_info_8h.html#ace0857144fd9584b9778927f20a2a67ea2f05998d2a71cdc19b7109549bbe2646", null ],

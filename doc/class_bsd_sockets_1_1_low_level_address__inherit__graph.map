@@ -1,5 +1,6 @@
 <map id="BsdSockets::LowLevelAddress" name="BsdSockets::LowLevelAddress">
-<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_low_level_address_type.html" title="LowLevelAddress template for the various cast&#45;to&#45;sockaddr implementaitons." alt="" coords="254,38,453,79"/>
-<area shape="rect" id="node3" href="$class_bsd_sockets_1_1_inet_address_pimpl.html" title="The private implementation of InetAddress." alt="" coords="501,5,696,46"/>
-<area shape="rect" id="node4" href="$class_bsd_sockets_1_1_local_address_pimpl.html" title="The private implementation of LocalAddress." alt="" coords="509,70,689,111"/>
+<area shape="rect" id="node1" title="Interface for the low&#45;level address implementation." alt="" coords="5,46,223,73"/>
+<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_low_level_address_type.html" title="LowLevelAddress template for the various cast&#45;to&#45;sockaddr implementaitons." alt="" coords="271,39,488,80"/>
+<area shape="rect" id="node3" href="$class_bsd_sockets_1_1_inet_address_pimpl.html" title="The private implementation of InetAddress." alt="" coords="536,5,755,47"/>
+<area shape="rect" id="node4" href="$class_bsd_sockets_1_1_local_address_pimpl.html" title="The private implementation of LocalAddress." alt="" coords="540,71,751,112"/>
 </map>

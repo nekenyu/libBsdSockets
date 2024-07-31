@@ -1,6 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_bsd_sockets_1_1_low_level_address.html" title="Interface for the low&#45;level address implementation." alt="" coords="6,35,205,61"/>
-<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_low_level_address_type.html" title="LowLevelAddress template for the various cast&#45;to&#45;sockaddr implementaitons." alt="" coords="254,27,453,69"/>
-<area shape="rect" id="node3" href="$class_bsd_sockets_1_1_inet_address_pimpl.html" title="The private implementation of InetAddress." alt="" coords="501,5,696,32"/>
-<area shape="rect" id="node4" href="$class_bsd_sockets_1_1_local_address_pimpl.html" title="The private implementation of LocalAddress." alt="" coords="512,57,685,98"/>
+<area shape="rect" id="node1" href="$class_bsd_sockets_1_1_low_level_address.html" title="Interface for the low&#45;level address implementation." alt="" coords="5,35,223,61"/>
+<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_low_level_address_type.html" title="LowLevelAddress template for the various cast&#45;to&#45;sockaddr implementaitons." alt="" coords="271,27,488,69"/>
+<area shape="rect" id="node3" href="$class_bsd_sockets_1_1_inet_address_pimpl.html" title="The private implementation of InetAddress." alt="" coords="536,5,755,32"/>
+<area shape="rect" id="node4" href="$class_bsd_sockets_1_1_local_address_pimpl.html" title="The private implementation of LocalAddress." alt="" coords="550,57,741,98"/>
 </map>

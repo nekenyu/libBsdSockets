@@ -1,3 +1,4 @@
 <map id="BsdSockets::LowLevelAddressType&lt; Impl &gt;" name="BsdSockets::LowLevelAddressType&lt; Impl &gt;">
-<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_low_level_address.html" title="Interface for the low&#45;level address implementation." alt="" coords="5,5,203,32"/>
+<area shape="rect" id="node1" title="LowLevelAddress template for the various cast&#45;to&#45;sockaddr implementaitons." alt="" coords="5,80,223,121"/>
+<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_low_level_address.html" title="Interface for the low&#45;level address implementation." alt="" coords="5,5,223,32"/>
 </map>

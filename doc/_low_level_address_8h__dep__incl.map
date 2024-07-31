@@ -1,6 +1,7 @@
 <map id="include/LowLevelAddress.h" name="include/LowLevelAddress.h">
-<area shape="rect" id="node2" href="$_client_socket_8cpp.html" title="src/ClientSocket.cpp" alt="" coords="5,80,141,107"/>
-<area shape="rect" id="node3" href="$_inet_address_8cpp.html" title="src/InetAddress.cpp" alt="" coords="166,80,300,107"/>
-<area shape="rect" id="node4" href="$_local_address_8cpp.html" title="src/LocalAddress.cpp" alt="" coords="325,80,469,107"/>
-<area shape="rect" id="node5" href="$_server_socket_8cpp.html" title="src/ServerSocket.cpp" alt="" coords="493,80,635,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="248,5,447,32"/>
+<area shape="rect" id="node2" href="$_client_socket_8cpp.html" title=" " alt="" coords="5,80,159,107"/>
+<area shape="rect" id="node3" href="$_inet_address_8cpp.html" title=" " alt="" coords="183,80,333,107"/>
+<area shape="rect" id="node4" href="$_local_address_8cpp.html" title=" " alt="" coords="357,80,516,107"/>
+<area shape="rect" id="node5" href="$_server_socket_8cpp.html" title=" " alt="" coords="541,80,698,107"/>
 </map>

@@ -6,8 +6,8 @@ var class_bsd_sockets_1_1_address =
     [ "Address", "class_bsd_sockets_1_1_address.html#a268709022fb5e9ab3f219a610ec2f62f", null ],
     [ "create", "class_bsd_sockets_1_1_address.html#aa3938a2303ef2407ab5332f50c254d9f", null ],
     [ "getLowLevelAddress", "class_bsd_sockets_1_1_address.html#aee997232d3400ca50bb917f023c3219a", null ],
-    [ "getProtocol", "class_bsd_sockets_1_1_address.html#ac4f0db3f633ee9cac5f02900da7c172f", null ],
-    [ "getSocketDomain", "class_bsd_sockets_1_1_address.html#a85650574454c4216c1a852a203b5e588", null ],
-    [ "getSocketType", "class_bsd_sockets_1_1_address.html#aee1d7dafa1ffac89b414401cea722fea", null ],
+    [ "getProtocol", "class_bsd_sockets_1_1_address.html#a843d664164d160d4ab6648f6510d4d53", null ],
+    [ "getSocketDomain", "class_bsd_sockets_1_1_address.html#ae950585faf6d51fbc87da2c6bc0b4e76", null ],
+    [ "getSocketType", "class_bsd_sockets_1_1_address.html#af8192e23f6ac1a5c7886f9d152941b42", null ],
     [ "makeTempLowLevelAddress", "class_bsd_sockets_1_1_address.html#a4f8cfd2fbf03b4fc3df0852c53212d0c", null ]
 ];

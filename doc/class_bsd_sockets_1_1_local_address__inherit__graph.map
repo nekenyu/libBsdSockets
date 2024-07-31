@@ -1,3 +1,4 @@
 <map id="BsdSockets::LocalAddress" name="BsdSockets::LocalAddress">
-<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_address.html" title="Base class for all addresses." alt="" coords="21,5,163,32"/>
+<area shape="rect" id="node1" title="Local Socket Address (formerly Unix Domain Socket) Address representing a named pipe&#39;s name." alt="" coords="5,80,196,107"/>
+<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_address.html" title="Base class for all addresses." alt="" coords="23,5,179,32"/>
 </map>

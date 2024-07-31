@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_bsd_sockets_1_1_address.html" title="Base class for all addresses." alt="" coords="6,31,149,57"/>
-<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_inet_address.html" title="Internet Address Class supporting IPv4 and IPv6 and creatable from hostnames and service names..." alt="" coords="203,5,365,32"/>
-<area shape="rect" id="node3" href="$class_bsd_sockets_1_1_local_address.html" title="Local Socket Address (formerly Unix Domain Socket) Address representing a named pipe&#39;s name..." alt="" coords="197,56,371,83"/>
+<area shape="rect" id="node1" href="$class_bsd_sockets_1_1_address.html" title="Base class for all addresses." alt="" coords="5,31,161,57"/>
+<area shape="rect" id="node2" href="$class_bsd_sockets_1_1_inet_address.html" title="Internet Address Class supporting IPv4 and IPv6 and creatable from hostnames and service names." alt="" coords="214,5,395,32"/>
+<area shape="rect" id="node3" href="$class_bsd_sockets_1_1_local_address.html" title="Local Socket Address (formerly Unix Domain Socket) Address representing a named pipe&#39;s name." alt="" coords="209,56,400,83"/>
 </map>
