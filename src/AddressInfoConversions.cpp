@@ -28,9 +28,9 @@ namespace BsdSockets {
         {SocketDomain::INET6, PF_INET6 },
         {SocketDomain::LOCAL, PF_LOCAL },
         {SocketDomain::ROUTE, PF_ROUTE },
-        {SocketDomain::KEY, PF_KEY },
-        {SocketDomain::SYSTEM, PF_SYSTEM },
-        {SocketDomain::RAW, PF_NDRV }
+        {SocketDomain::KEY, PF_KEY } // ,
+//        {SocketDomain::SYSTEM, PF_SYSTEM },
+//        {SocketDomain::RAW, PF_NDRV }
       };
 
     const auto found = map.find(domain);
@@ -48,9 +48,9 @@ namespace BsdSockets {
         {PF_INET6, SocketDomain::INET6 },
         {PF_LOCAL, SocketDomain::LOCAL },
         {PF_ROUTE, SocketDomain::ROUTE },
-        {PF_KEY, SocketDomain::KEY },
-        {PF_SYSTEM, SocketDomain::SYSTEM },
-        {PF_NDRV, SocketDomain::RAW }
+        {PF_KEY, SocketDomain::KEY } //,
+//         {PF_SYSTEM, SocketDomain::SYSTEM },
+//         {PF_NDRV, SocketDomain::RAW }
       };
 
     const auto found = map.find(lowLevel);

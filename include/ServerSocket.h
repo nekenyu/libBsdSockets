@@ -19,6 +19,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include "Socket.h"
 #endif // SOCKET_H
 
+#include <functional>
+
 namespace BsdSockets {
 
   /*

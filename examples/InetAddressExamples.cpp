@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
   // Invalid service
   try {
     InetAddress::Ptr invalid = InetAddress::create(SocketType::STREAM, "9999999999");
-  } catch (std::system_error e) {
+  } catch (std::system_error& e) {
   }
 
   // Specifying a service by name

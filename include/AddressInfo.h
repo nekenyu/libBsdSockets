@@ -41,10 +41,10 @@ namespace BsdSockets {
       KEY,
 
       /** Kernel Event Messages */
-      SYSTEM,
+//      SYSTEM,
 
       /** Raw Protocol Interface */
-      RAW
+//      RAW
       };
 
   /** The low-level type of the socket.

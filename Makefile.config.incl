@@ -5,27 +5,27 @@
 
 # Note: This defaults to GCC 4.7 as used in development.
 # TODO: make this conditional
-CXX= g++-mp-4.7
+CXX= g++
 CXXFLAGS += -std=c++11
 
 INCLUDE= $(TOPDIR)/include
 CXXFLAGS += -I $(INCLUDE)
-CXXFLAGS += -Werror
+
 CXXFLAGS += -Wall
+CXXFLAGS += -Werror
+CXXFLAGS += -O3
 
 ifdef DEBUG
       CXXFLAGS += -g
-else
-      CXXFLAGS += -O3
 endif
-
 
 MAKEDEPEND= $(CXX) -MM $(CXXFLAGS) -o $*.d $<
 
 LIB_BSD_SOCKET= $(TOPDIR)/lib/libBsdSockets.a
 LIB_BSD_SOCKET_INCL= -L $(TOPDIR)/lib -l BsdSockets
 
-LIB_CPPUNIT_INCL= -L /opt/local/lib -lcppunit
+LIB_CPPUNIT_INCL= ~/windows/wsl/git/cppunit/src/cppunit/.libs/libcppunit.a
+CXXFLAGS += -I ~/windows/wsl/git/cppunit/include
 
 info:
 	@echo SRC=$(SRC)
