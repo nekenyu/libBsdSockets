@@ -3,7 +3,7 @@
 # Makefile.config.incl
 #
 
-# Note: This defaults to GCC 4.7 as used in development.
+# Note: This defaults to GCC as used in development.
 # TODO: make this conditional
 CXX= g++
 CXXFLAGS += -std=c++11
@@ -13,10 +13,11 @@ CXXFLAGS += -I $(INCLUDE)
 
 CXXFLAGS += -Wall
 CXXFLAGS += -Werror
-CXXFLAGS += -O3
 
 ifdef DEBUG
-      CXXFLAGS += -g
+	CXXFLAGS += -ggdb
+else
+	CXXFLAGS += -O3
 endif
 
 MAKEDEPEND= $(CXX) -MM $(CXXFLAGS) -o $*.d $<
