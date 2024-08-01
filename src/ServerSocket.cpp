@@ -88,8 +88,13 @@ namespace BsdSockets {
     return ServerSocket::Ptr (new ServerSocket(theAddress));
   }
 
-  ServerSocket::Ptr ServerSocket::open(Address::Ptr theAddress, int backlog) {
+  ServerSocket::Ptr ServerSocket::open(Address::Ptr theAddress, int backlog,  bool reuse) {
     ServerSocket::Ptr socket = create(theAddress);
+    if(reuse) {
+      const int reuse = 1;
+      socket->setSocketOption(SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+      socket->setSocketOption(SOL_SOCKET, SO_REUSEPORT, &reuse, sizeof(reuse));
+    }
     socket->bind();
     socket->listen(backlog);
     return socket;

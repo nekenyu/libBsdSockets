@@ -111,7 +111,7 @@ public:
     const bool isNetwork = SocketDomain::INET4 == domain || SocketDomain::INET6 == domain;
 
     // Create Server
-    ServerSocket::Ptr server = ServerSocket::open(address, 16);
+    ServerSocket::Ptr server = ServerSocket::open(address, 16, true);
 
     // Create Client
     if(noConnections) {

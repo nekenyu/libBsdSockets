@@ -90,7 +90,7 @@ public:
 
   void serviceNameSmtp() {
     const std::string requested = "smtp";
-    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, requested);
+    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, requested, "127.0.0.1");
     CPPUNIT_ASSERT_EQUAL(requested, addr->getServiceName());
     CPPUNIT_ASSERT_EQUAL(25u, addr->getPort());
   }
@@ -101,7 +101,7 @@ public:
     str << port;
     const std::string requested = str.str();
 
-    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, requested);
+    InetAddress::Ptr addr = InetAddress::create(SocketType::STREAM, requested, "127.0.0.1");
     CPPUNIT_ASSERT_EQUAL(port, addr->getPort());
   }
 

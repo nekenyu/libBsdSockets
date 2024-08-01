@@ -52,11 +52,12 @@ namespace BsdSockets {
      *
      * @param theAddress to open, bind and listen the ServerSocket on
      * @param backlog length before events error
+     * @param reuse true to allow reuse of address and port, or false for default for timeout before reuse
      * @return the socket
      *
      * @see %listen() parameter backlog for more details
      */
-    static ServerSocket::Ptr open(std::shared_ptr<Address> theAddress, int backlog = 128);
+    static ServerSocket::Ptr open(std::shared_ptr<Address> theAddress, int backlog = 128, bool reuse = false);
 
     /** Closes socket.  Virtual destructor to support derived classes. */
     virtual ~ServerSocket();
