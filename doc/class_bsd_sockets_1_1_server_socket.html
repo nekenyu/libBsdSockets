@@ -162,8 +162,8 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a6c0fc13d3a2e46d393089ef72c748814"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bsd_sockets_1_1_server_socket.html#ae258b0434e5bd7a351a4bda595749d5f">ServerSocket::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_server_socket.html#a6c0fc13d3a2e46d393089ef72c748814">create</a> (std::shared_ptr&lt; <a class="el" href="class_bsd_sockets_1_1_address.html">Address</a> &gt; theAddress)</td></tr>
 <tr class="separator:a6c0fc13d3a2e46d393089ef72c748814"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7144d36319bea9cd0a111aee74dfe57"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bsd_sockets_1_1_server_socket.html#ae258b0434e5bd7a351a4bda595749d5f">ServerSocket::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_server_socket.html#ae7144d36319bea9cd0a111aee74dfe57">open</a> (std::shared_ptr&lt; <a class="el" href="class_bsd_sockets_1_1_address.html">Address</a> &gt; theAddress, int backlog=128)</td></tr>
-<tr class="separator:ae7144d36319bea9cd0a111aee74dfe57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ea12e1fd787eedc411cadda514d8320"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bsd_sockets_1_1_server_socket.html#ae258b0434e5bd7a351a4bda595749d5f">ServerSocket::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_server_socket.html#a5ea12e1fd787eedc411cadda514d8320">open</a> (std::shared_ptr&lt; <a class="el" href="class_bsd_sockets_1_1_address.html">Address</a> &gt; theAddress, int backlog=128, bool reuse=false)</td></tr>
+<tr class="separator:a5ea12e1fd787eedc411cadda514d8320"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_class_bsd_sockets_1_1_socket"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_bsd_sockets_1_1_socket')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_bsd_sockets_1_1_socket.html">BsdSockets::Socket</a></td></tr>
 <tr class="memitem:a129f49a418774045d45410f1c9023e10 inherit pub_static_methods_class_bsd_sockets_1_1_socket"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bsd_sockets_1_1_socket.html#a529188c256c6ce22b6609b9249c9a5e5">Socket::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bsd_sockets_1_1_socket.html#a129f49a418774045d45410f1c9023e10">create</a> (std::shared_ptr&lt; <a class="el" href="class_bsd_sockets_1_1_address.html">Address</a> &gt; theAddress, int existingLowLevelSocket)</td></tr>
 <tr class="separator:a129f49a418774045d45410f1c9023e10 inherit pub_static_methods_class_bsd_sockets_1_1_socket"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,7 +225,7 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Closes socket. Virtual destructor to support derived classes. </p>
 
-<p class="definition">Definition at line <a class="el" href="_server_socket_8cpp_source.html#l00098">98</a> of file <a class="el" href="_server_socket_8cpp_source.html">ServerSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_server_socket_8cpp_source.html#l00103">103</a> of file <a class="el" href="_server_socket_8cpp_source.html">ServerSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -280,7 +280,7 @@ Protected Member Functions</h2></td></tr>
 <p>Accept a connection on the Server <a class="el" href="class_bsd_sockets_1_1_socket.html" title="BSD Socket base class providing the basic, common functionality between ServerSockets and ClientSocke...">Socket</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>the <a class="el" href="class_bsd_sockets_1_1_socket.html" title="BSD Socket base class providing the basic, common functionality between ServerSockets and ClientSocke...">Socket</a> accepted </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_server_socket_8cpp_source.html#l00120">120</a> of file <a class="el" href="_server_socket_8cpp_source.html">ServerSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_server_socket_8cpp_source.html#l00125">125</a> of file <a class="el" href="_server_socket_8cpp_source.html">ServerSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -308,7 +308,7 @@ Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>thread created </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_server_socket_8cpp_source.html#l00125">125</a> of file <a class="el" href="_server_socket_8cpp_source.html">ServerSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_server_socket_8cpp_source.html#l00130">130</a> of file <a class="el" href="_server_socket_8cpp_source.html">ServerSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -328,7 +328,7 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Bind this <a class="el" href="class_bsd_sockets_1_1_socket.html" title="BSD Socket base class providing the basic, common functionality between ServerSockets and ClientSocke...">Socket</a> to the address </p>
 
-<p class="definition">Definition at line <a class="el" href="_server_socket_8cpp_source.html#l00106">106</a> of file <a class="el" href="_server_socket_8cpp_source.html">ServerSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_server_socket_8cpp_source.html#l00111">111</a> of file <a class="el" href="_server_socket_8cpp_source.html">ServerSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -395,12 +395,12 @@ Protected Member Functions</h2></td></tr>
 </dl>
 <dl class="section see"><dt>See also</dt><dd>listen() parameter backlog for more details </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_server_socket_8cpp_source.html#l00114">114</a> of file <a class="el" href="_server_socket_8cpp_source.html">ServerSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_server_socket_8cpp_source.html#l00119">119</a> of file <a class="el" href="_server_socket_8cpp_source.html">ServerSocket.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae7144d36319bea9cd0a111aee74dfe57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7144d36319bea9cd0a111aee74dfe57">&#9670;&nbsp;</a></span>open()</h2>
+<a id="a5ea12e1fd787eedc411cadda514d8320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ea12e1fd787eedc411cadda514d8320">&#9670;&nbsp;</a></span>open()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -418,7 +418,13 @@ Protected Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>backlog</em> = <code>128</code>&#160;</td>
+          <td class="paramname"><em>backlog</em> = <code>128</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>reuse</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -437,6 +443,7 @@ Protected Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">theAddress</td><td>to open, bind and listen the <a class="el" href="class_bsd_sockets_1_1_server_socket.html" title="Server Socket providing ability to bind, listen and accept connections.">ServerSocket</a> on </td></tr>
     <tr><td class="paramname">backlog</td><td>length before events error </td></tr>
+    <tr><td class="paramname">reuse</td><td>true to allow reuse of address and port, or false for default for timeout before reuse </td></tr>
   </table>
   </dd>
 </dl>
@@ -457,7 +464,7 @@ Protected Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_bsd_sockets.html">BsdSockets</a></li><li class="navelem"><a class="el" href="class_bsd_sockets_1_1_server_socket.html">ServerSocket</a></li>
-    <li class="footer">Generated on Thu Aug 1 2024 10:26:01 for libBsdSockets by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Aug 1 2024 11:58:19 for libBsdSockets by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
