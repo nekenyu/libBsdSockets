@@ -242,7 +242,7 @@ public:
   }
 
   void localSelectAll() {
-    port = std::string("./local-socket-") + port;
+    port = std::string("/tmp/local-socket-") + port;
     Address::Ptr address = LocalAddress::create(port);
     
     removeLocalSocket(port);
