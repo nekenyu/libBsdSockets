@@ -5,3 +5,6 @@ License is located in LICENSE.
 Code, documentation, examples and test are built with: make build
 
 Documentation is stored in dox/ in doxygen markup style or can be viewed as built by doxygen.
+
+NOTE: The unit test has 8 errors (intermittent in debug, consistent in release) and 1 failure
+(intermittent in release and debug). These should be fixed at a later date.
