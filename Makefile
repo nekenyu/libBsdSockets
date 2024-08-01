@@ -1,7 +1,9 @@
-all:
 #
 # Top Level Makefile
 #
+
+# Default target
+all:
 
 # Subdirectories to be made and dependencies
 #
@@ -27,21 +29,24 @@ subdirs: $(SUBDIRS)
 
 $(SUBDIRS):
 	@echo Entering directory \`$@\'
-	make -C $@ $(TARGET)
+	+make -C $@ $(TARGET)
 	@echo Leaving directory \`$@\'
 
 
 # Other tasks
 #
 
-.PHONY: doxygen
-doxygen: all
+.PHONY: docs
+docs: all
 	doxygen Doxyfile
 
+.PHONY: cleanest
 cleanest:
 	-rm -rf doc_built
 
+.PHONY: runTest
 runTest: all
-	test/cppunitTest
+	build/test/cppunit-test.exe
 
-build: all doxygen runTest
+.PHONY: world
+world: all docs runTest

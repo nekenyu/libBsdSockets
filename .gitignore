@@ -1,11 +1,8 @@
-.DS_Store
-*.d
 doc_built
+\#*#
+.#*
 *~
 *.bak
 *.o
 *.d
-test/cppunitTest
-examples/*.exe
-\#*#
-.#*
+*.exe

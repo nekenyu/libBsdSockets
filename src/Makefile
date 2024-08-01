@@ -1,32 +1,12 @@
-all:
-
 #
 # src Makefile
 #
 
 TOPDIR= ../
--include $(TOPDIR)/Makefile.config.incl
 
-TARGET= $(LIB_BSD_SOCKET)
-all: $(TARGET)
+# Library we are making
+include $(TOPDIR)/Makefile.lib.incl
 
-SRC:= $(wildcard *.cpp)
-OBJS= $(patsubst %.cpp,%.o,$(SRC))
-DEPS= $(patsubst %.cpp,%.d,$(SRC))
-
-%.o: %.cpp
-	@$(MAKEDEPEND)
-	$(CXX) $(CXXFLAGS) -c $<
-
--include $(DEPS)
-
-clean:
-	rm -f $(OBJS)
-
-cleaner: clean
-	rm -f $(DEPS)
-
-cleanest: cleaner
-	rm -f $(TARGET)
-
-$(TARGET): $(TARGET)($(OBJS))
+# Targets
+MAKE_LIB=${LIB_BSD_SOCKETS_FILE}
+include $(TOPDIR)/Make/Makefile.incl

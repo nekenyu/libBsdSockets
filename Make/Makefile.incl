@@ -1,0 +1,28 @@
+
+#
+# Makefile.incl
+#
+# REQUIRES:
+#	TOPDIR -- Path to the top level directory of project, containing this Make/Makefile.incl
+#   a target, one of:
+#		MAKE_LIB -- Name of library to build
+#		MAKE_EXE -- Name of executable to build
+#		MAKE_EXES -- (any value) builds each .cpp as an executable
+# Optional:
+#   CXXFLAGS -- flags when compile an object or executable
+#	LIBS -- flags when linking an excecutable
+
+# Standard Targets
+all:
+
+clean:
+
+cleaner: clean
+
+cleanest: cleaner
+
+info:
+.PHONY: all clean cleaner cleanest info
+
+include ${TOPDIR}/Make/Makefile.options.incl
+include ${TOPDIR}/Make/Makefile.compile.incl

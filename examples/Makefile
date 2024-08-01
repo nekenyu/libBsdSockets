@@ -1,28 +1,14 @@
-all:
-
 #
-# src Makefile
+# examples Makefile
 #
 
 TOPDIR= ../
--include $(TOPDIR)/Makefile.config.incl
 
-SRC:= $(wildcard *.cpp)
-DEPS= $(patsubst %.cpp,%.d,$(SRC))
-EXES= $(patsubst %.cpp,%.exe,$(SRC))
+# Libraries
+include $(TOPDIR)/Makefile.lib.incl
+CXXFLAGS+= ${LIB_BSD_SOCKETS_FLAGS}
+LIBS+= ${LIB_BSD_SOCKETS_LIBS}
 
-all: $(EXES)
-
-%.exe: %.cpp $(LIB_BSD_SOCKET)
-	@$(MAKEDEPEND)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIB_BSD_SOCKET_INCL)
-
--include $(DEPS)
-
-clean:
-
-cleaner: clean
-	rm -f $(DEPS)
-
-cleanest: cleaner
-	rm -f $(EXES)
+# Targets
+MAKE_EXES=1
+include $(TOPDIR)/Make/Makefile.incl

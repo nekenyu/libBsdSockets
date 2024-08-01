@@ -1,0 +1,23 @@
+
+#
+# Makefile.options.incl
+#
+
+# Note: This defaults to GCC as used in development.
+# TODO: make this conditional
+CXX= g++
+CXXFLAGS += -std=c++11
+
+CXXFLAGS += -Wall
+CXXFLAGS += -Werror
+
+ifdef DEBUG
+	CXXFLAGS += -g
+else
+	CXXFLAGS += -O3
+endif
+
+CXXFLAGS += -I $(TOPDIR)/include
+
+LIB_CPPUNIT_FLAGS= -I ~/windows/wsl/git/cppunit/include
+LIB_CPPUNIT_LIBS= ~/windows/wsl/git/cppunit/src/cppunit/.libs/libcppunit.a

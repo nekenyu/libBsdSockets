@@ -1,0 +1,19 @@
+
+#
+# Makefile.lib.incl
+#
+# Defines this library for building.
+#
+# Example usage:
+#	include (path-to-this-file)
+#	CXXFLAGS+= ${LIB_BSD_SOCKETS_FLAGS}
+#	LIBS+= ${LIB_BSD_SOCKETS_LIBS}
+
+LIB_BSD_SOCKETS_NAME= BsdSockets
+# Note: := assigns this when __this__ file is included, using the most recent include -- the lastword
+LIB_BSD_SOCKETS_TOPDIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+LIB_BSD_SOCKETS_FILE= $(LIB_BSD_SOCKETS_TOPDIR)/lib/lib${LIB_BSD_SOCKETS_NAME}.a
+
+LIB_BSD_SOCKETS_FLAGS= -I ${LIB_BSD_SOCKETS_TOPDIR}/include
+LIB_BSD_SOCKETS_LIBS= ${LIB_BSD_SOCKETS_FILE}
+

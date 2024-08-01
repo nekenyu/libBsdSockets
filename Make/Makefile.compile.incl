@@ -1,0 +1,144 @@
+#
+# Makefile.compile.incl
+#
+
+#
+# Support for common definitions and rules
+#
+ifdef MAKE_LIB
+	MAKE_COMPILE= true
+endif
+ifdef MAKE_EXE
+	MAKE_COMPILE= true
+endif
+ifdef MAKE_EXES
+	MAKE_COMPILE= true
+endif
+
+#
+# Common definitions and rules (before specialized)
+#
+ifdef MAKE_COMPILE
+MAKEDEPEND= $(CXX) -MM $(CXXFLAGS) -o $(BUILD_DIR)/$*.d $<
+BUILD_DIR=$(TOPDIR)/build/$(shell realpath --relative-to $(TOPDIR) .)
+
+# Common variables
+SRC:= $(wildcard *.cpp)
+DEPENDS= $(patsubst %.cpp,$(BUILD_DIR)/%.d,${SRC})
+OBJECTS=
+TARGETS=
+INFO="(unknown)"
+
+-include ${DEPENDS}
+
+# Generic object file build
+$(BUILD_DIR)/%.o: %.cpp
+	-@mkdir -p $(BUILD_DIR)
+	$(MAKEDEPEND)
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+endif
+
+#
+# MAKE_LIB makes the library $(MAKE_LIB) from all source files
+#
+ifdef MAKE_LIB
+
+INFO= Info for library: ${MAKE_LIB}
+OBJECTS= $(patsubst %.cpp,$(BUILD_DIR)/%.o,${SRC})
+LIBRARY= ${MAKE_LIB}
+TARGETS=${LIBRARY}
+
+# Make the library
+
+# .PRECIOUS prevents the intermediate $(OBJECTS) from being deleted
+.PRECIOUS: $(OBJECTS)
+# These rules override the POSIX behavior to support parallel build by updating all outdated members last
+(%) : % ;
+%.a : ; $(AR) $(ARFLAGS) $@ $?
+
+# TODO: Would be nice if it wouldn't update members from NON-updated objects
+$(LIBRARY): $(LIBRARY)($(OBJECTS))
+	$(AR) $(ARFLAGS) $@ $?
+	ranlib $@
+
+endif
+
+#
+# MAKE_EXE makes the executable $(MAKE_EXE) from all source files
+#
+ifdef MAKE_EXE
+INFO= Info for executable: ${MAKE_EXE}
+OBJECTS= $(patsubst %.cpp,$(BUILD_DIR)/%.o,${SRC})
+EXECUTABLE= $(BUILD_DIR)/${MAKE_EXE}
+TARGETS= $(EXECUTABLE)
+
+# Make the executable
+# TODO: Depend on the library in this project (if needed)
+$(EXECUTABLE): $(OBJECTS)
+	-@mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
+
+endif
+
+#
+# MAKE_EXES makes one executable for each source file
+#
+ifdef MAKE_EXES
+INFO= Info for executables: $(TARGETS) 
+OBJECTS= # No OBJECTS since direct .cpp to .exe
+TARGETS= $(patsubst %.cpp,$(BUILD_DIR)/%.exe,${SRC})
+
+# Make each executable
+# TODO: Depend on library in this project (if needed)
+$(BUILD_DIR)/%.exe: %.cpp
+	-@mkdir -p $(BUILD_DIR)
+	$(MAKEDEPEND)
+	$(CXX) $(CXXFLAGS) -o $@ $^ ${LIBS}
+
+endif
+
+#
+# Common rules (after specialized)
+# - all, clean, cleaner, cleanest, info
+#
+ifdef MAKE_COMPILE
+# all builds depend upon the TARGETS
+all: ${TARGETS}
+
+# Clean target (if OBJECTS is not empty)
+ifneq "$(OBJECTS)" ""
+.PHONY: clean-compile
+clean-compile:
+	-rm -f $(OBJECTS)
+clean: clean-compile
+endif
+
+# Cleaner target
+.PHONY: cleaner-compile
+cleaner-compile:
+	-rm -f $(DEPENDS)
+cleaner: cleaner-compile
+
+# Cleanest target
+.PHONY: cleanest-compile
+cleanest-compile:
+	-rm -f $(TARGETS)
+cleanest: cleanest-compile
+
+# Info target
+.PHONY: info-compile
+info-compile:
+	@echo $(INFO)
+	@echo " "
+	@echo BUILD_DIR=$(BUILD_DIR)
+	@echo CXX=${CXX}
+	@echo CXXFLAGS=${CXXFLAGS}
+	@echo LIBS=${LIBS}
+	@echo " "
+	@echo SRC=$(SRC)
+	@echo DEPENDS=${DEPENDS}
+	@echo OBJECTS=${OBJECTS}
+	@echo TARGETS=${TARGETS}
+info: info-compile
+endif

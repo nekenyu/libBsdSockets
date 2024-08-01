@@ -1,33 +1,17 @@
-all:
-
 #
 # test Makefile
 #
 
 TOPDIR= ../
--include $(TOPDIR)/Makefile.config.incl
 
-TARGET= cppunitTest
-all: $(TARGET)
+# Libraries
+include $(TOPDIR)/Makefile.lib.incl
+CXXFLAGS+= ${LIB_BSD_SOCKETS_FLAGS}
+LIBS+= ${LIB_BSD_SOCKETS_LIBS}
 
-SRC:= $(wildcard *.cpp)
-OBJS= $(patsubst %.cpp,%.o,$(SRC))
-DEPS= $(patsubst %.cpp,%.d,$(SRC))
+CXXFLAGS+= ${LIB_CPPUNIT_FLAGS}
+LIBS+= ${LIB_CPPUNIT_LIBS}
 
-%.o: %.cpp
-	@$(MAKEDEPEND)
-	$(CXX) $(CXXFLAGS) -c $<
-
--include $(DEPS)
-
-clean:
-	rm -f $(OBJS)
-
-cleaner: clean
-	rm -f $(DEPS)
-
-cleanest: cleaner
-	rm -f $(TARGET)
-
-$(TARGET): $(OBJS) $(LIB_BSD_SOCKET)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIB_BSD_SOCKET_INCL) $(LIB_CPPUNIT_INCL)
+# Targets
+MAKE_EXE=cppunit-test.exe
+include $(TOPDIR)/Make/Makefile.incl
